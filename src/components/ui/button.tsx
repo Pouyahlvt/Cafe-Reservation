@@ -11,7 +11,7 @@ interface Props {
 
 export default function HoverButton({
   text,
-  BclassName = "rounded-full border border-white/20 px-10 py-4 text-lg font-semibold text-white",
+  BclassName = "rounded-full border border-white/20 px-10 py-4 text-lg font-semibold text-white ",
   TclassName,
 }: Props) {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -42,7 +42,7 @@ export default function HoverButton({
       ref={buttonRef}
       onMouseEnter={(e) => animate(e, 20)}
       onMouseLeave={(e) => animate(e, 0)}
-      className={`relative flex justify-center items-center  overflow-hidden 
+      className={`relative flex justify-center items-center  overflow-hidden  
       cursor-pointer  ${BclassName}`}>
       <span
         ref={circleRef}
