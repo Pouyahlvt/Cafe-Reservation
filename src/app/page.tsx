@@ -6,10 +6,11 @@ import Menu from "../components/menu";
 export default function Home() {
   return (
     <div className="w-full min-h-screen bg-olive-700 ">
-      <div className="fixed top-0 w-full">{<Intro_section />}</div>
-      <div className="absolute top-full w-full z-20 h-screen bg-transparent">
+      <section className="fixed top-0 w-full">{<Intro_section />}</section>
+      <section className="absolute top-full w-full z-20 h-screen bg-transparent">
         {<Menu />}
-      </div>
+        <div className="absolute w-full h-screen bg-dusty-olive">section 3</div>
+      </section>
     </div>
   );
 }

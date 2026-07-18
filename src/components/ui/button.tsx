@@ -53,7 +53,7 @@ export default function HoverButton({
         }}
       />
 
-      <span className={`z-10 mix-blend-difference ${TclassName}`}>{text}</span>
+      <span className={`z-10  ${TclassName}`}>{text}</span>
     </button>
   );
 }

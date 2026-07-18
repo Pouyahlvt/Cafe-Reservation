@@ -64,7 +64,7 @@ const Intro_section = () => {
           duration: 0.7,
           ease: "power3.out",
         },
-        "-=2  ",
+        "-=3  ",
       )
       .to(
         ".door-sec",
@@ -101,7 +101,7 @@ const Intro_section = () => {
         {header.map((word, i) => (
           <p
             key={`word-${i}`}
-            className={`cafe-header text-8xl font-black scale-y-200 text-olive-400 blur-xs
+            className={`cafe-header text-8xl font-black scale-y-200 text-dark-spruce blur-xs
           ${word === " " ? "ml-5" : ""} opacity-0  select-none cursor-default font-museo`}>
             {word}
           </p>
@@ -111,24 +111,24 @@ const Intro_section = () => {
         <HoverButton
           text="Reservation"
           TclassName=" text-2xl"
-          BclassName="reservation-button border border-white/30 rounded-full w-65 py-5 text-olive-400
+          BclassName="reservation-button border border-dark-spruce/50 rounded-full w-65 py-5 text-dark-spruce
           opacity-0 -translate-x-70 backdrop-blur-xs"
         />
         <HoverButton
           text="Reserved"
           TclassName=" text-2xl"
-          BclassName="reserved-button border border-white/30 rounded-full w-65 py-5 text-olive-400
+          BclassName="reserved-button border border-dark-spruce/30 rounded-full w-65 py-5 text-dark-spruce
           opacity-0 translate-x-70 backdrop-blur-xs"
         />
       </div>
-      <div className="w-full flex justify-center mt-10 text-olive-400">
+      <div className="w-full flex justify-center mt-10 text-dark-spruce font-museo">
         {
           <MapPin className="address-text mr-2 blur-xs translate-y-5 opacity-0" />
         }
         {locateText.map((word, i) => (
           <p
             key={`word-${i}`}
-            className={` text-olive-400  address-text
+            className={`text-xl address-text
           ${word === " " ? "ml-1" : ""} blur-xs translate-y-5 opacity-0`}>
             {word}
           </p>
