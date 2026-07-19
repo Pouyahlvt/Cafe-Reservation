@@ -33,27 +33,30 @@ const Event_page = ({
         </div>
       )}
       <div className="w-[40%] h-full">
-        <h2 className="ml-15 mt-15 text-7xl font-black font-museo ">
+        <h2 className="ml-15 mt-15 text-7xl font-black font-museo text-dark-spruce">
           {event_name}
         </h2>
-        <p className="ml-15 mt-10  text-3xl font-black font-museo">
+        <p className="ml-15 mt-10  text-3xl font-black font-museo text-dark-spruce ">
           {event_text}
         </p>
-        {
-          <HoverButton
-            text="reservation events"
-            BclassName="border border-dark-spruce/50 rounded-full w-65 py-5 text-dark-spruce backdrop-blur-xs 
-            text-2xl font-museo font-bold w-80 py-5 mt-60  ml-15"
-            TclassName=""
-          />
-        }
+        <div className="absolute bottom-35 ml-15">
+          {
+            <HoverButton
+              text="Events Reservation"
+              bgClass="bg-dark-spruce"
+              TclassName=" text-2xl font-black font-museo"
+              BclassName="border border-forest-moss/50 rounded-full w-90 py-6 text-forest-moss
+               backdrop-blur-xs bg-dark-spruce/50 shadow-2xl/50 flex mt-auto"
+            />
+          }
+        </div>
       </div>
       <div className="w-[60%] h-full">
-        <p className="absolute top-10 right-20 text-6xl font-museo font-bold">
+        <p className="absolute top-10 right-20 text-6xl font-museo font-bold text-dark-spruce ">
           {date}
         </p>
         <div className="absolute bottom-5 right-30">
-          <p className="text-3xl font-museo font-bold">
+          <p className="text-3xl font-museo font-bold text-dark-spruce">
             {full
               ? "sorry we dont have space for you :("
               : "we have space for you :)"}

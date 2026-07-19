@@ -110,20 +110,22 @@ const Intro_section = () => {
       <div className="flex justify-center mt-60 gap-7">
         <HoverButton
           text="Reservation"
-          TclassName=" text-2xl"
-          BclassName="reservation-button border border-dark-spruce/50 rounded-full w-65 py-5 text-dark-spruce
-          opacity-0 -translate-x-70 backdrop-blur-xs"
+          bgClass="bg-dark-spruce"
+          TclassName=" text-2xl font-black font-museo"
+          BclassName="reservation-button border border-forest-moss/50 rounded-full w-65 py-5 text-forest-moss
+          opacity-0 -translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50"
         />
         <HoverButton
           text="Reserved"
-          TclassName=" text-2xl"
-          BclassName="reserved-button border border-dark-spruce/30 rounded-full w-65 py-5 text-dark-spruce
-          opacity-0 translate-x-70 backdrop-blur-xs"
+          bgClass="bg-dark-spruce"
+          TclassName=" text-2xl font-black font-museo"
+          BclassName="reservation-button border border-forest-moss/50 rounded-full w-65 py-5 text-forest-moss
+          opacity-0 -translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50"
         />
       </div>
       <div className="w-full flex justify-center mt-10 text-dark-spruce font-museo">
         {
-          <MapPin className="address-text mr-2 blur-xs translate-y-5 opacity-0" />
+          <MapPin className="address-text mr-2 blur-xs translate-y-5 opacity-0 " />
         }
         {locateText.map((word, i) => (
           <p

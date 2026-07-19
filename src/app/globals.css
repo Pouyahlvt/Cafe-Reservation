@@ -10,3 +10,14 @@
 
   --font-museo: "MuseoModerno Variable", sans-serif;
 }
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: #9abca7;
+  background: #31402b;
+}
+
+::selection {
+  color: #9abca7;
+  background: #31402b;
+}

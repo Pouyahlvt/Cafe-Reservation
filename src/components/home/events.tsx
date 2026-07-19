@@ -36,16 +36,16 @@ const Events = () => {
   return (
     <section ref={sectionRef} className="relative h-screen overflow-hidden">
       <div ref={wrapperRef} className="flex w-max">
-        <div className="panel shrink-0   w-screen h-screen bg-dusty-olive">
+        <div className="panel shrink-0   w-screen h-screen bg-sega-green">
           {<Event_page />}
         </div>
-        <div className="panel shrink-0   w-screen  h-screen bg-olive-400">
+        <div className="panel shrink-0   w-screen  h-screen bg-muted-teal">
           {<Event_page />}
         </div>
-        <div className="panel shrink-0   w-screen  h-screen bg-blue-300">
+        <div className="panel shrink-0   w-screen  h-screen bg-sega-green">
           {<Event_page />}
         </div>
-        <div className="panel shrink-0   w-screen  h-screen bg-cyan-400">
+        <div className="panel shrink-0   w-screen  h-screen bg-muted-teal">
           {<Event_page />}
         </div>
       </div>
