@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import HoverButton from "./button";
+import Gallery from "./gallery";
 
 interface Props {
   url?: string;
@@ -39,7 +40,7 @@ const Event_page = ({
         <p className="ml-15 mt-10  text-3xl font-black font-museo text-dark-spruce ">
           {event_text}
         </p>
-        <div className="absolute bottom-35 ml-15">
+        <div className="absolute bottom-35 ml-15 ">
           {
             <HoverButton
               text="Events Reservation"
@@ -51,11 +52,24 @@ const Event_page = ({
           }
         </div>
       </div>
-      <div className="w-[60%] h-full">
+      <div className="w-[60%] h-full items-center flex ">
         <p className="absolute top-10 right-20 text-6xl font-museo font-bold text-dark-spruce ">
           {date}
         </p>
-        <div className="absolute bottom-5 right-30">
+        <div className="flex shrink-0 w-full h-[70%] my-auto ">
+          {
+            <Gallery
+              images={[
+                "/images-1.jpg",
+                "/images-2.jpg",
+                "/images-3.jpg",
+                "/images-4.jpg",
+                "/images-5.jpg",
+              ]}
+            />
+          }
+        </div>
+        <div className="absolute bottom-5 right-30 ">
           <p className="text-3xl font-museo font-bold text-dark-spruce">
             {full
               ? "sorry we dont have space for you :("

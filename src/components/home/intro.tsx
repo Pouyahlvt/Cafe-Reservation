@@ -5,8 +5,6 @@ import { MapPin } from "lucide-react";
 import gsap from "gsap";
 import HoverButton from "../ui/button";
 import Image from "next/image";
-import greenWall from "../../public/greenwall.png";
-import door from "../../public/door.png";
 
 const Intro_section = () => {
   const texts: string[] = [
@@ -79,7 +77,7 @@ const Intro_section = () => {
   return (
     <div className="absolute z-1  w-full h-screen overflow-hidden">
       <Image
-        src={greenWall}
+        src="/greenwall.png"
         alt={"background"}
         fill
         style={{ objectFit: "cover" }}
@@ -89,12 +87,13 @@ const Intro_section = () => {
       <div className="door-sec absolute right-20 bottom-0  overflow-hidden">
         <div className="w-4 h-4 rounded-full  absolute z-1 inset-0 ml-9 my-77 cursor-grab"></div>
         <Image
-          src={door}
+          src="/door.png"
           alt="door"
           width={280}
+          height={500}
           draggable={false}
-          height={0}
-          className="door opacity-0  translate-y-50 select-none "
+          className="door opacity-0 translate-y-50 select-none"
+          priority
         />
       </div>
       <div className="flex ml-10 mt-25">
@@ -119,7 +118,7 @@ const Intro_section = () => {
           text="Reserved"
           bgClass="bg-dark-spruce"
           TclassName=" text-2xl font-black font-museo"
-          BclassName="reservation-button border border-forest-moss/50 rounded-full w-65 py-5 text-forest-moss
+          BclassName="reserved-button border border-forest-moss/50 rounded-full w-65 py-5 text-forest-moss
           opacity-0 -translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50"
         />
       </div>

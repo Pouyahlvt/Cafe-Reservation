@@ -37,16 +37,16 @@ const Events = () => {
     <section ref={sectionRef} className="relative h-screen overflow-hidden">
       <div ref={wrapperRef} className="flex w-max">
         <div className="panel shrink-0   w-screen h-screen bg-sega-green">
-          {<Event_page />}
+          {<Event_page event_name="World Cup" />}
         </div>
         <div className="panel shrink-0   w-screen  h-screen bg-muted-teal">
-          {<Event_page />}
+          {<Event_page event_name="Halloween" />}
         </div>
         <div className="panel shrink-0   w-screen  h-screen bg-sega-green">
-          {<Event_page />}
+          {<Event_page event_name="christmas" />}
         </div>
         <div className="panel shrink-0   w-screen  h-screen bg-muted-teal">
-          {<Event_page />}
+          {<Event_page event_name="vallentine" />}
         </div>
       </div>
     </section>
