@@ -1,38 +1,31 @@
 "use client";
 
-import Image from "next/image";
 import HoverButton from "./button";
 import Gallery from "./gallery";
 
 interface Props {
-  url?: string;
   event_name?: string;
   event_text?: string;
   date?: string;
   full?: boolean;
+  images?: string[];
 }
 
 const Event_page = ({
-  url = "",
   event_name = "Events-name",
   event_text = "Event-text should be here",
   date = "9/11/2001",
   full = false,
+  images = [
+    "/greenwall.png",
+    "/greenwall.png",
+    "/greenwall.png",
+    "/greenwall.png",
+    "/greenwall.png",
+  ],
 }: Props) => {
   return (
     <div className="relative w-full h-full overflow-hidden flex">
-      {url?.length > 4 && (
-        <div className="absolute z-10  w-full h-screen overflow-hidden">
-          <Image
-            src={`${url}`}
-            alt={"background"}
-            fill
-            style={{ objectFit: "cover" }}
-            className="select-none"
-            draggable={false}
-          />
-        </div>
-      )}
       <div className="w-[40%] h-full">
         <h2 className="ml-15 mt-15 text-7xl font-black font-museo text-dark-spruce">
           {event_name}
@@ -41,7 +34,7 @@ const Event_page = ({
           {event_text}
         </p>
         <div className="absolute bottom-35 ml-15 ">
-          {
+          {!full && (
             <HoverButton
               text="Events Reservation"
               bgClass="bg-dark-spruce"
@@ -49,7 +42,12 @@ const Event_page = ({
               BclassName="border border-forest-moss/50 rounded-full w-90 py-6 text-forest-moss
                backdrop-blur-xs bg-dark-spruce/50 shadow-2xl/50 flex mt-auto"
             />
-          }
+          )}
+          {full && (
+            <p className="text-3xl font-museo font-bold text-dark-spruce">
+              {"The event is ended :("}
+            </p>
+          )}
         </div>
       </div>
       <div className="w-[60%] h-full items-center flex ">
@@ -57,24 +55,7 @@ const Event_page = ({
           {date}
         </p>
         <div className="flex shrink-0 w-full h-[70%] my-auto ">
-          {
-            <Gallery
-              images={[
-                "/images-1.jpg",
-                "/images-2.jpg",
-                "/images-3.jpg",
-                "/images-4.jpg",
-                "/images-5.jpg",
-              ]}
-            />
-          }
-        </div>
-        <div className="absolute bottom-5 right-30 ">
-          <p className="text-3xl font-museo font-bold text-dark-spruce">
-            {full
-              ? "sorry we dont have space for you :("
-              : "we have space for you :)"}
-          </p>
+          {<Gallery images={images} />}
         </div>
       </div>
     </div>

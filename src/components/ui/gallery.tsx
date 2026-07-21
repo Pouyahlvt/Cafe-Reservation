@@ -102,8 +102,12 @@ export default function Gallery({ images }: Props) {
     <div className="relative flex  items-center justify-center w-full h-full overflow-hidden">
       <button
         onClick={prev}
-        className="absolute left-8 z-50 text-5xl text-white">
-        ←
+        className="absolute left-8 z-50 text-5xl text-dark-spruce border-2 rounded-full h-12 
+        aspect-square shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] bg-forest-moss -translate-y-5
+        cursor-pointer hover:scale-105 transition-all duration-150 ease-in-out active:scale-90">
+        <span className="flex -translate-y-2 translate-x-3.5  font-thin ">
+          ‹
+        </span>
       </button>
 
       {images.map((img, index) => (
@@ -121,14 +125,17 @@ export default function Gallery({ images }: Props) {
             className="select-none"
             sizes="30vw"
             draggable={false}
+            loading="eager"
           />
         </div>
       ))}
 
       <button
         onClick={next}
-        className="absolute right-8 z-50 text-5xl text-white">
-        →
+        className="absolute right-8 z-50 text-5xl text-dark-spruce border-2 rounded-full h-12 
+        aspect-square shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] bg-forest-moss -translate-y-5 
+        cursor-pointer hover:scale-105 transition-all duration-150 ease-in-out active:scale-90">
+        <span className="flex -translate-y-2 translate-x-4  font-thin ">›</span>
       </button>
     </div>
   );

@@ -9,6 +9,7 @@ interface Props {
   TclassName?: string;
   bgClass?: string;
   arrow?: boolean;
+  onClick?: () => void;
 }
 
 export default function HoverButton({
@@ -17,6 +18,9 @@ export default function HoverButton({
   TclassName,
   bgClass = "bg-white",
   arrow = false,
+  onClick = () => {
+    console.log("Hi there :) ----- ! This is not working now ! ----- ");
+  },
 }: Props) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const circleRef = useRef<HTMLSpanElement>(null);
@@ -82,6 +86,7 @@ export default function HoverButton({
   return (
     <button
       ref={buttonRef}
+      onClick={onClick}
       onMouseEnter={(e) => {
         animate(e, 25);
         arrow_animation();
