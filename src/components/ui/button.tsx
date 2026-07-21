@@ -1,82 +1,97 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 
 interface Props {
   text: string;
-  bgClass?: string;
   BclassName?: string;
   TclassName?: string;
+  bgClass?: string;
+  arrow?: boolean;
 }
 
 export default function HoverButton({
   text,
-  bgClass = "bg-white",
-  BclassName = "rounded-full border border-white/20 px-10 py-4 text-lg font-semibold text-white",
+  BclassName = "rounded-full border border-white/20 px-10 py-4 text-lg font-semibold text-white ",
   TclassName,
+  bgClass = "bg-white",
+  arrow = false,
 }: Props) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const circleRef = useRef<HTMLSpanElement>(null);
+  const arrow_one = useRef<HTMLSpanElement>(null);
+  const arrow_two = useRef<HTMLSpanElement>(null);
 
-  const xTo = useRef<((value: number) => void) | null>(null);
-  const yTo = useRef<((value: number) => void) | null>(null);
-
-  useEffect(() => {
-    if (!circleRef.current) return;
-
-    xTo.current = gsap.quickTo(circleRef.current, "x", {
-      duration: 0.25,
-      ease: "power3.out",
-    });
-
-    yTo.current = gsap.quickTo(circleRef.current, "y", {
-      duration: 0.25,
-      ease: "power3.out",
-    });
-  }, []);
-
-  const handleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const animate = (e: React.MouseEvent<HTMLButtonElement>, scale: number) => {
     if (!buttonRef.current || !circleRef.current) return;
 
     const rect = buttonRef.current.getBoundingClientRect();
 
-    xTo.current?.(e.clientX - rect.left);
-    yTo.current?.(e.clientY - rect.top);
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    gsap.set(circleRef.current, {
+      x,
+      y,
+    });
 
     gsap.to(circleRef.current, {
-      scale: 20,
-      duration: 0.5,
+      scale,
+      duration: 0.7,
       ease: "power3.out",
     });
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!buttonRef.current) return;
+  const tl = useRef<gsap.core.Timeline | null>(null);
 
-    const rect = buttonRef.current.getBoundingClientRect();
+  useEffect(() => {
+    if (!arrow_one.current || !arrow_two.current) return;
 
-    xTo.current?.(e.clientX - rect.left);
-    yTo.current?.(e.clientY - rect.top);
+    tl.current = gsap.timeline({ paused: true });
+
+    tl.current
+      .to(
+        arrow_one.current,
+        {
+          x: 8,
+          duration: 1.2,
+          ease: "elastic.out(1,0.4)",
+        },
+        0,
+      )
+      .to(
+        arrow_two.current,
+        {
+          x: 20,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+        0,
+      );
+  }, []);
+
+  const arrow_animation = () => {
+    tl.current?.play();
   };
 
-  const handleMouseLeave = () => {
-    if (!circleRef.current) return;
-
-    gsap.to(circleRef.current, {
-      scale: 0,
-      duration: 0.4,
-      ease: "power3.out",
-    });
+  const arrow_clear = () => {
+    tl.current?.reverse();
   };
 
   return (
     <button
       ref={buttonRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`relative flex items-center justify-center overflow-hidden cursor-pointer ${BclassName}`}>
+      onMouseEnter={(e) => {
+        animate(e, 25);
+        arrow_animation();
+      }}
+      onMouseLeave={(e) => {
+        animate(e, 0);
+        arrow_clear();
+      }}
+      className={`relative flex justify-center items-center  overflow-hidden  
+      cursor-pointer  ${BclassName}`}>
       <span
         ref={circleRef}
         className={`absolute left-0 top-0 h-8 w-8 rounded-full ${bgClass}`}
@@ -86,7 +101,17 @@ export default function HoverButton({
         }}
       />
 
-      <span className={`relative z-10 ${TclassName}`}>{text}</span>
+      <span className={`z-10  ${TclassName}`}>{text}</span>
+      <div
+        className={`ml-6 z-10 aspect-square h-[90%] border-2 rounded-full overflow-hidden flex
+        ${arrow ? "" : "hidden"}`}>
+        <span ref={arrow_one} className="text-2xl -translate-x-5 ">
+          →
+        </span>
+        <span ref={arrow_two} className="text-2xl -translate-x-3">
+          →
+        </span>
+      </div>
     </button>
   );
 }

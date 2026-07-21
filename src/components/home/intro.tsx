@@ -109,16 +109,18 @@ const Intro_section = () => {
       <div className="flex justify-center mt-60 gap-7">
         <HoverButton
           text="Reservation"
+          arrow={true}
           bgClass="bg-dark-spruce"
           TclassName=" text-2xl font-black font-museo"
-          BclassName="reservation-button border border-forest-moss/50 rounded-full w-65 py-5 text-forest-moss
+          BclassName="reservation-button border border-forest-moss/50 rounded-full w-75 py-4 text-forest-moss
           opacity-0 -translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50"
         />
         <HoverButton
           text="Reserved"
+          arrow={true}
           bgClass="bg-dark-spruce"
           TclassName=" text-2xl font-black font-museo"
-          BclassName="reserved-button border border-forest-moss/50 rounded-full w-65 py-5 text-forest-moss
+          BclassName="reserved-button border border-forest-moss/50 rounded-full w-75 py-4 text-forest-moss
           opacity-0 -translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50"
         />
       </div>
