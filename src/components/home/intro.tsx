@@ -22,8 +22,8 @@ const Intro_section = () => {
       y: 0,
       filter: "blur(0px)",
       scaleY: "250%",
-      duration: 0.4,
-      ease: "power3.out",
+      duration: 1,
+      ease: "elastic.out(1,0.4)",
       stagger: 0.05,
     })
       .to(
@@ -31,8 +31,8 @@ const Intro_section = () => {
         {
           opacity: 1,
           x: 0,
-          duration: 0.7,
-          ease: "power3.out",
+          duration: 1,
+          ease: "elastic.out(0.5,0.5)",
         },
         "-=0.8",
       )
@@ -41,8 +41,8 @@ const Intro_section = () => {
         {
           opacity: 1,
           x: 0,
-          duration: 0.7,
-          ease: "power3.out",
+          duration: 1,
+          ease: "elastic.out(0.5,0.5)",
         },
         "<",
       )
@@ -121,7 +121,7 @@ const Intro_section = () => {
           bgClass="bg-dark-spruce"
           TclassName=" text-2xl font-black font-museo"
           BclassName="reserved-button border border-forest-moss/50 rounded-full w-75 py-4 text-forest-moss
-          opacity-0 -translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50"
+          opacity-0 translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50"
         />
       </div>
       <div className="w-full flex justify-center mt-10 text-dark-spruce font-museo">

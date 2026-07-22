@@ -3,6 +3,7 @@
 import Intro_section from "../components/home/intro";
 import Menu from "../components/home/menu";
 import Events from "../components/home/events";
+import Footer from "../components/home/footer";
 
 export default function Home() {
   return (
@@ -11,11 +12,7 @@ export default function Home() {
       <section className="absolute top-full w-full z-20 h-screen bg-transparent">
         {<Menu />}
         {<Events />}
-        <div className="absolute w-full h-screen bg-yellow-400">
-          <h1 className="font-museo text-center mt-30 font-black tracking-tighter text-[15rem]">
-            Footer
-          </h1>
-        </div>
+        {<Footer />}
       </section>
     </div>
   );
