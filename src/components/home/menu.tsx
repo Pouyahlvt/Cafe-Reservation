@@ -1,120 +1,118 @@
 "use client";
 
 import gsap from "gsap";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type Menu_tems_type = {
-  [category: string]: {
-    [item: string]: string[];
-  };
-};
+type MenuItems = Record<string, Record<string, string[]>>;
 
 const Menu = () => {
   const menu_section = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState<string>("");
-  const menu_items: Menu_tems_type = {
-    "hot-ssdrinks": {
-      late: ["espresso", "milk"],
-      capochino: ["espresso", "milk", "fome milk"],
-    },
-    "cold-drinks": {
-      "ice-late": ["espresso", "milk", "ice"],
-      "ice-tea": ["irainian tea", "ice"],
-    },
-    shakes: { "nutella-shake": ["milk", "nutella", "banana", "cream"] },
-    breakfast: {
-      egg: ["just egg idiot !"],
-      omlet: ["eggs", "tomato", "onion", "papper", "salt"],
-    },
-    food: {
-      pasta: ["pasta", "parmesan", "chiken", "milk", "cream"],
-      burger: ["bread", "red meat", "cheese", "Lettuce", "onion", "tomato"],
-    },
-  };
+  const [menuItems, setMenuItems] = useState<MenuItems>({});
 
-  useGSAP(() => {
-    if (!menu_section.current) return;
+  useEffect(() => {
+    async function load_menu() {
+      const res = await fetch("/api/menu");
+      const data = await res.json();
 
-    const section = menu_section.current;
+      setMenuItems(data);
+    }
 
-    gsap.to(section, {
-      borderRadius: 0,
-      duration: 0.5,
-      ease: "power2.inOut",
-      scrollTrigger: {
-        trigger: section,
-        start: "top top",
-        toggleActions: "play reverse play reverse",
-      },
-    });
+    load_menu();
+  }, []);
 
-    gsap.to(".menu-header", {
-      fontSize: "4rem",
-      duration: 0.5,
-      ease: "power3.inOut",
-      scrollTrigger: {
-        trigger: section,
-        start: "top 33%",
-        toggleActions: "play reverse play reverse",
-      },
-    });
+  useGSAP(
+    () => {
+      if (!menu_section.current) return;
+      if (Object.keys(menuItems).length === 0) return;
 
-    Object.entries(menu_items).forEach(([category, items]) => {
-      gsap.to(`.menu-${category}`, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power3.out",
+      const section = menu_section.current;
+
+      gsap.to(section, {
+        borderRadius: 0,
+        duration: 0.5,
+        ease: "power2.inOut",
         scrollTrigger: {
-          trigger: `.menu-${category}`,
-          start: "top 90%",
+          trigger: section,
+          start: "top top",
           toggleActions: "play reverse play reverse",
         },
       });
 
-      gsap.to(`.${category}-div`, {
-        flexGrow: 1,
-        flexShrink: 1,
-        flexBasis: "0%",
-        duration: 2,
-        ease: "power3.out",
+      gsap.to(".menu-header", {
+        fontSize: "4rem",
+        duration: 0.5,
+        ease: "power3.inOut",
         scrollTrigger: {
-          trigger: `.menu-${category}`,
-          start: "top 90%",
+          trigger: section,
+          start: "top 33%",
           toggleActions: "play reverse play reverse",
         },
       });
 
-      Object.keys(items).forEach((item) => {
-        gsap.to(`.${item}-text`, {
-          opacity: 100,
-          x: 0,
-          duration: 0.7,
+      Object.entries(menuItems).forEach(([category, items]) => {
+        gsap.to(`.menu-${category}`, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: `.${item}-text`,
+            trigger: `.menu-${category}`,
             start: "top 90%",
             toggleActions: "play reverse play reverse",
           },
         });
 
-        gsap.to(`.${item}-line`, {
-          width: "90%",
-          duration: 0.7,
+        gsap.to(`.${category}-div`, {
+          flexGrow: 1,
+          flexBasis: "0%",
+          duration: 2,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: `.${item}-text`,
+            trigger: `.menu-${category}`,
             start: "top 90%",
             toggleActions: "play reverse play reverse",
           },
         });
+
+        Object.keys(items).forEach((item) => {
+          gsap.to(`.${item}-text`, {
+            opacity: 1,
+            x: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: `.${item}-text`,
+              start: "top 90%",
+              toggleActions: "play reverse play reverse",
+            },
+          });
+
+          gsap.to(`.${item}-line`, {
+            width: "90%",
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: `.${item}-text`,
+              start: "top 90%",
+              toggleActions: "play reverse play reverse",
+            },
+          });
+        });
       });
-    });
-  });
+
+      ScrollTrigger.refresh();
+    },
+    {
+      scope: menu_section,
+      dependencies: [menuItems],
+      revertOnUpdate: true,
+    },
+  );
   return (
     <section
       ref={menu_section}
@@ -125,7 +123,7 @@ const Menu = () => {
         Menu
       </h1>
       <div className="shrink-0 mx-7 mt-30 min-h-screen ">
-        {Object.entries(menu_items).map(([category, items]) => (
+        {Object.entries(menuItems).map(([category, items]) => (
           <div key={category}>
             <div className="flex w-full items-center justify-center my-6">
               <div
@@ -155,7 +153,7 @@ const Menu = () => {
                         <div
                           key={`ing-${i}`}
                           className={`${show === item ? " ml-4 transalte-x-0" : "-translate-x-10 opacity-0"}  
-                                    text-2xl text-dusty-olive
+                                    text-2xl text-sega-green
                           transition-all duration-500 ease-in-out `}>
                           <span className="mr-2">|</span> {ing}
                         </div>
