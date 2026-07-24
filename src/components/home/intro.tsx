@@ -5,6 +5,7 @@ import { MapPin } from "lucide-react";
 import gsap from "gsap";
 import HoverButton from "../ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 const Intro_section = () => {
   const texts: string[] = [
@@ -107,22 +108,26 @@ const Intro_section = () => {
         ))}
       </div>
       <div className="flex justify-center mt-60 gap-7">
-        <HoverButton
-          text="Reservation"
-          arrow={true}
-          bgClass="bg-dark-spruce"
-          TclassName=" text-2xl font-black font-museo"
-          BclassName="reservation-button border border-forest-moss/50 rounded-full w-75 py-4 text-forest-moss
+        <Link href={"/reservation"}>
+          <HoverButton
+            text="Reservation"
+            arrow={true}
+            bgClass="bg-dark-spruce"
+            TclassName=" text-2xl font-black font-museo"
+            BclassName="reservation-button border border-forest-moss/50 rounded-full w-75 py-4 text-forest-moss
           opacity-0 -translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50"
-        />
-        <HoverButton
-          text="Reserved"
-          arrow={true}
-          bgClass="bg-dark-spruce"
-          TclassName=" text-2xl font-black font-museo"
-          BclassName="reserved-button border border-forest-moss/50 rounded-full w-75 py-4 text-forest-moss
+          />
+        </Link>
+        <Link href="/reserved">
+          <HoverButton
+            text="Reserved"
+            arrow={true}
+            bgClass="bg-dark-spruce"
+            TclassName=" text-2xl font-black font-museo"
+            BclassName="reserved-button border border-forest-moss/50 rounded-full w-75 py-4 text-forest-moss
           opacity-0 translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50"
-        />
+          />
+        </Link>
       </div>
       <div className="w-full flex justify-center mt-10 text-dark-spruce font-museo">
         {
