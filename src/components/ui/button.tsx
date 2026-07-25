@@ -8,6 +8,7 @@ interface Props {
   BclassName?: string;
   TclassName?: string;
   bgClass?: string;
+  scaleNum?: number;
   arrow?: boolean;
   onClick?: () => void;
 }
@@ -17,6 +18,7 @@ export default function HoverButton({
   BclassName = "rounded-full border border-white/20 px-10 py-4 text-lg font-semibold text-white ",
   TclassName,
   bgClass = "bg-white",
+  scaleNum = 25,
   arrow = false,
   onClick = () => {
     console.log("Hi there :) ----- ! This is not working now ! ----- ");
@@ -88,7 +90,7 @@ export default function HoverButton({
       ref={buttonRef}
       onClick={onClick}
       onMouseEnter={(e) => {
-        animate(e, 25);
+        animate(e, scaleNum);
         arrow_animation();
       }}
       onMouseLeave={(e) => {
@@ -110,10 +112,14 @@ export default function HoverButton({
       <div
         className={`ml-6 z-10 aspect-square h-[90%] border-2 rounded-full overflow-hidden flex
         ${arrow ? "" : "hidden"}`}>
-        <span ref={arrow_one} className="text-2xl -translate-x-5 ">
+        <span
+          ref={arrow_one}
+          className="text-2xl -translate-x-5 translate-y-0.5">
           →
         </span>
-        <span ref={arrow_two} className="text-2xl -translate-x-3">
+        <span
+          ref={arrow_two}
+          className="text-2xl -translate-x-3 translate-y-0.5">
           →
         </span>
       </div>

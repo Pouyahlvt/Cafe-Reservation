@@ -41,7 +41,7 @@ const Form_template = ({ text = "object", children }: Props) => {
         <div className="width-line   h-1 bg-forest-moss rounded-full flex items-center">
           <div className="h-4 w-4 bg-forest-moss rounded-full absolute"></div>
         </div>
-        <h1 className="header text-5xl text-forest-moss mx-15 text-nowrap opacity-0 -translate-y-10">
+        <h1 className="header text-6xl text-forest-moss mx-15 text-nowrap opacity-0 -translate-y-10">
           {text}
         </h1>
         <div className="width-line   h-1 bg-forest-moss rounded-full flex items-center shrink-0">
