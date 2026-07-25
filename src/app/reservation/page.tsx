@@ -1,12 +1,14 @@
-"use clinet";
+"use client";
+
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import Form_template from "@/src/components/ui/formTemplate";
 
 const Reservation = () => {
   return (
-    <div className="bg-dark-spruce w-full h-screen">
-      <h1 className="text-center font-black font-museo text-9xl text-forest-moss">
-        RESERVATION PAGE
-      </h1>
-    </div>
+    <Form_template text="Enter Email">
+      <h1>Hello world !</h1>
+    </Form_template>
   );
 };
 
