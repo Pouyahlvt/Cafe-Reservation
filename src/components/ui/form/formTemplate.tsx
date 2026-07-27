@@ -5,10 +5,36 @@ import { useGSAP } from "@gsap/react";
 
 interface Props {
   text?: string;
+  text_two?: string;
+  dependes_two?: boolean;
   children: React.ReactNode;
 }
 
-const Form_template = ({ text = "object", children }: Props) => {
+const Form_template = ({
+  text = "object",
+  text_two,
+  dependes_two = false,
+  children,
+}: Props) => {
+  useGSAP(() => {
+    if (dependes_two) {
+      gsap.to(".header", {
+        opacity: 0,
+        y: -30,
+        duration: 1.2,
+        ease: "power3.out",
+      });
+
+      gsap.to(".header-two", {
+        opacity: 1,
+        y: -30,
+        delay: 0.5,
+        duration: 1.2,
+        ease: "power3.out",
+      });
+    }
+  }, [dependes_two]);
+
   useGSAP(() => {
     const tl = gsap.timeline();
 
@@ -41,9 +67,16 @@ const Form_template = ({ text = "object", children }: Props) => {
         <div className="width-line   h-1 bg-forest-moss rounded-full flex items-center">
           <div className="h-4 w-4 bg-forest-moss rounded-full absolute"></div>
         </div>
-        <h1 className="header text-6xl text-forest-moss mx-15 text-nowrap opacity-0 -translate-y-10">
-          {text}
-        </h1>
+        <div>
+          <h1 className="header text-6xl text-forest-moss mx-15 text-nowrap opacity-0 -translate-y-10 cursor-default">
+            {text}
+          </h1>
+          {text_two && dependes_two && (
+            <h1 className="header-two text-6xl text-forest-moss mx-15 text-nowrap opacity-0 translate-y-10 cursor-default">
+              {text_two}
+            </h1>
+          )}
+        </div>
         <div className="width-line   h-1 bg-forest-moss rounded-full flex items-center shrink-0">
           <div className="h-4 w-4 bg-forest-moss rounded-full ml-auto "></div>
         </div>
