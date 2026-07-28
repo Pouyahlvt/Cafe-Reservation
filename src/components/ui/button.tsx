@@ -97,7 +97,7 @@ export default function HoverButton({
         animate(e, 0);
         arrow_clear();
       }}
-      className={`relative flex justify-center items-center  overflow-hidden  
+      className={`relative flex justify-center items-center  overflow-hidden 
       cursor-pointer  ${BclassName}`}>
       <span
         ref={circleRef}

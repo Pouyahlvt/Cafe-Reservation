@@ -108,7 +108,7 @@ const Intro_section = () => {
         ))}
       </div>
       <div className="flex justify-center mt-60 gap-7">
-        <Link href={"/reservation"}>
+        <Link href={"/reservation/verify"}>
           <HoverButton
             text="Reservation"
             arrow={true}
