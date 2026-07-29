@@ -54,7 +54,7 @@ const Form_template = ({
     );
 
     gsap.to(".header", {
-      opacity: 1,
+      opacity: 0.8,
       y: 0,
       duration: 1.2,
       ease: "power3.out",
@@ -81,11 +81,11 @@ const Form_template = ({
           <div className="h-4 w-4 bg-forest-moss rounded-full ml-auto "></div>
         </div>
       </div>
-      <div className="w-full h-screen absolute  top-0 py-10 px-25 flex">
+      <div className="w-full h-screen absolute  top-0 pt-10 px-25 flex">
         <div className="height-line flex w-1 h-1 bg-forest-moss rounded-full justify-center">
           <div className="h-4 w-4 bg-forest-moss rounded-full absolute"></div>
         </div>
-        <div className="flex w-full shrink h-100 mx-10 mt-20">{children}</div>
+        <div className="flex w-full shrink h-full mx-10 mt-20">{children}</div>
         <div className="height-line flex w-1 h-1 bg-forest-moss rounded-full justify-center">
           <div className="h-4 w-4 bg-forest-moss rounded-full absolute"></div>
         </div>
