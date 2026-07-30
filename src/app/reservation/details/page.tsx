@@ -1,7 +1,7 @@
 "use client";
 
 import Form_template from "@/src/components/ui/form/formTemplate";
-import { Normal_input } from "@/src/components/ui/form/inputs";
+import { Normal_input, Num_input } from "@/src/components/ui/form/inputs";
 
 const DetailReservation = () => {
   return (
@@ -11,6 +11,7 @@ const DetailReservation = () => {
           <div className="w-[80%]">
             {<Normal_input placeHolder="Enter your name " />}
           </div>
+          {<Num_input range={[0, 12]} />}
         </div>
       </Form_template>
     </div>

@@ -7,6 +7,10 @@ interface NormalProps {
   placeHolder: string;
 }
 
+interface NumProps {
+  range: number[];
+}
+
 export const Normal_input = ({ placeHolder }: NormalProps) => {
   const [isFocuse, setIsFocuse] = useState(false);
   const [text, setText] = useState("");
@@ -33,9 +37,11 @@ export const Normal_input = ({ placeHolder }: NormalProps) => {
   }, [isFocuse]);
   return (
     <div className="w-full">
-      <p ref={textRef} className="absolute mt-4 ml-4 text-2xl opacity-50 z-0">
+      <div
+        ref={textRef}
+        className="absolute mt-4 ml-4 text-2xl opacity-50 pointer-events-none">
         {placeHolder}
-      </p>
+      </div>
 
       <input
         onFocus={() => setIsFocuse(true)}
@@ -44,9 +50,40 @@ export const Normal_input = ({ placeHolder }: NormalProps) => {
         autoComplete="off"
         onChange={(e) => setText(e.target.value)}
         type="text"
-        className="w-full text-2xl font-museo py-4 px-4 outline-0  rounded-t-2xl z-20"
+        className="flex w-full text-2xl font-museo py-4 px-4 outline-0  rounded-t-2xl z-20"
       />
       <div className="w-full h-1 rounded-full bg-forest-moss "></div>
+    </div>
+  );
+};
+
+export const Num_input = ({ range }: NumProps) => {
+  const [num, setNum] = useState(0);
+  const numRef = useRef<HTMLDivElement>(null);
+  const numRange = Array.from(
+    { length: range[1] - range[0] + 1 },
+    (_, i) => range[0] + i,
+  );
+
+  return (
+    <div className="w-full flex justify-center">
+      <div>
+        <div className="relative w-10 h-10  mx-auto mb-4 overflow-hidden pb-5">
+          <div className="absolute w-10 h-10 bg-forest-moss rotate-45 mt-7 rounded-t-md cursor-pointer"></div>{" "}
+        </div>
+        <div className="relative flex text-4xl border-y-2 py-7 w-15 h-fit pointer-events-none justify-center items-center">
+          {numRange.map((n, i) => (
+            <p
+              key={`num-${i}`}
+              className={`absolute ${num === i ? "" : "opacity-0"}`}>
+              {n}
+            </p>
+          ))}
+        </div>
+        <div className="relative w-10 h-10  mx-auto mt-4 overflow-hidden pb-5">
+          <div className="absolute w-10 h-10 bg-forest-moss rotate-45 -mt-7 rounded-b-md cursor-pointer"></div>{" "}
+        </div>
+      </div>
     </div>
   );
 };
