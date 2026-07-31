@@ -59,29 +59,44 @@ export const Normal_input = ({ placeHolder }: NormalProps) => {
 
 export const Num_input = ({ range }: NumProps) => {
   const [num, setNum] = useState(0);
-  const numRef = useRef<HTMLDivElement>(null);
+  const numsRef = useRef<HTMLParagraphElement | null>(null);
   const numRange = Array.from(
     { length: range[1] - range[0] + 1 },
     (_, i) => range[0] + i,
   );
 
+  const next = () => {
+    if (num === numRange.length - 1) {
+      setNum(num);
+      if (!numsRef.current) return;
+    } else {
+      setNum(num + 1);
+    }
+  };
+
   return (
     <div className="w-full flex justify-center">
       <div>
         <div className="relative w-10 h-10  mx-auto mb-4 overflow-hidden pb-5">
-          <div className="absolute w-10 h-10 bg-forest-moss rotate-45 mt-7 rounded-t-md cursor-pointer"></div>{" "}
+          <div
+            onClick={next}
+            className="absolute w-10 h-10 bg-forest-moss rotate-45 mt-7 rounded-md  cursor-pointer active:scale-90 duration-200"></div>{" "}
         </div>
-        <div className="relative flex text-4xl border-y-2 py-7 w-15 h-fit pointer-events-none justify-center items-center">
+        <div className="text-4xl border-y-2 w-15 h-15 pointer-events-none overflow-hidden">
           {numRange.map((n, i) => (
             <p
               key={`num-${i}`}
-              className={`absolute ${num === i ? "" : "opacity-0"}`}>
+              ref={i === numRange.length - 1 ? numsRef : null}
+              style={{ transform: `translateY(${num * -48}px)` }}
+              className={`text-center my-2  transition-all duration-400 ease-out`}>
               {n}
             </p>
           ))}
         </div>
         <div className="relative w-10 h-10  mx-auto mt-4 overflow-hidden pb-5">
-          <div className="absolute w-10 h-10 bg-forest-moss rotate-45 -mt-7 rounded-b-md cursor-pointer"></div>{" "}
+          <div
+            onClick={() => setNum(num === 0 ? num : num - 1)}
+            className="absolute w-10 h-10 bg-forest-moss rotate-45 -mt-7 rounded-b-md cursor-pointer active:scale-90 duration-200"></div>{" "}
         </div>
       </div>
     </div>
