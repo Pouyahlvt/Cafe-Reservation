@@ -2,9 +2,29 @@
 
 import Form_template from "@/src/components/ui/form/formTemplate";
 import HoverButton from "@/src/components/ui/button";
+import gsap from "gsap";
 import { Normal_input, Num_input } from "@/src/components/ui/form/inputs";
+import { useState, useEffect } from "react";
 
 const DetailReservation = () => {
+  const [limit, setLimit] = useState(11);
+  const text = "! Limit Gustes is 12 ,at least 1 adults.";
+
+  useEffect(() => {
+    const errEl = document.getElementsByClassName("error-text");
+    if (!errEl) return;
+
+    const tl = gsap.timeline();
+    tl.to(".error-text", {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      duration: 0.5,
+      ease: "power3.out",
+      stagger: 0.07,
+    });
+  }, []);
+
   return (
     <div className="w-full h-screen bg-dark-spruce font-museo text-forest-moss">
       <Form_template text="Fill parts">
@@ -17,23 +37,46 @@ const DetailReservation = () => {
             <div className="w-[40%] flex justify-center gap-20">
               <div className="">
                 <p className="text-center text-2xl">People</p>
-                {<Num_input range={[0, 12]} />}
+                {
+                  <Num_input
+                    range={[1, 12]}
+                    limit={limit}
+                    setLimit={setLimit}
+                  />
+                }
               </div>
               <div>
                 <p className="text-center text-2xl">Under 8</p>
-                {<Num_input range={[0, 11]} />}
+                {
+                  <Num_input
+                    range={[0, 11]}
+                    limit={limit}
+                    setLimit={setLimit}
+                  />
+                }
               </div>
             </div>
           </div>
-          {
-            <HoverButton
-              text="Let's go"
-              BclassName="text-4xl border-2 w-[80%] mt-15 mx-auto h-22 rounded-full border-forest-moss"
-              TclassName="button-text-email text-5xl text-forest-moss font-bold"
-              scaleNum={55}
-              bgClass="bg-sega-green"
-            />
-          }
+          <div className="flex items-center">
+            {
+              <HoverButton
+                text="Let's go"
+                BclassName="text-4xl border-2 w-[50%] mt-15 ml-15 h-22 rounded-full border-forest-moss"
+                TclassName="button-text-email text-5xl text-forest-moss font-bold"
+                scaleNum={35}
+                bgClass="bg-sega-green"
+              />
+            }
+            <div className="flex w-[50%] justify-center items-center ">
+              {text.split("").map((word, i) => (
+                <p
+                  key={`error-text-${i}`}
+                  className={`error-text ${word === " " ? "ml-2" : ""} blur-md translate-y-5 opacity-0 cursor-default`}>
+                  {word}
+                </p>
+              ))}
+            </div>
+          </div>
         </div>
       </Form_template>
     </div>

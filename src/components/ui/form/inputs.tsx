@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 
 interface NormalProps {
@@ -9,6 +9,8 @@ interface NormalProps {
 
 interface NumProps {
   range: number[];
+  limit: number;
+  setLimit: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const Normal_input = ({ placeHolder }: NormalProps) => {
@@ -57,7 +59,7 @@ export const Normal_input = ({ placeHolder }: NormalProps) => {
   );
 };
 
-export const Num_input = ({ range }: NumProps) => {
+export const Num_input = ({ range, limit, setLimit }: NumProps) => {
   const [num, setNum] = useState(0);
   const numsRef = useRef<HTMLParagraphElement | null>(null);
   const numRange = Array.from(
@@ -66,11 +68,21 @@ export const Num_input = ({ range }: NumProps) => {
   );
 
   const next = () => {
-    if (num === numRange.length - 1) {
+    if (num === numRange.length - 1 || limit === 0) {
       setNum(num);
       if (!numsRef.current) return;
     } else {
       setNum(num + 1);
+      setLimit((i) => i - 1);
+    }
+  };
+
+  const prev = () => {
+    if (num === 0) {
+      setNum(num);
+    } else {
+      setNum(num - 1);
+      setLimit((i) => i + 1);
     }
   };
 
@@ -95,7 +107,7 @@ export const Num_input = ({ range }: NumProps) => {
         </div>
         <div className="relative w-10 h-10  mx-auto mt-4 overflow-hidden pb-5">
           <div
-            onClick={() => setNum(num === 0 ? num : num - 1)}
+            onClick={prev}
             className="absolute w-10 h-10 bg-forest-moss rotate-45 -mt-7 rounded-b-md cursor-pointer active:scale-90 duration-200"></div>{" "}
         </div>
       </div>
