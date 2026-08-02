@@ -7,7 +7,10 @@ import { Normal_input, Num_input } from "@/src/components/ui/form/inputs";
 import { useState, useEffect } from "react";
 
 const DetailReservation = () => {
+  const [name, setName] = useState("");
   const [limit, setLimit] = useState(11);
+  const [adults, setAdults] = useState(1);
+  const [child, setChild] = useState(0);
   const text = "! Limit Gustes is 12 ,at least 1 adults.";
 
   useEffect(() => {
@@ -32,7 +35,13 @@ const DetailReservation = () => {
           <div className="flex">
             <div className="w-[60%] px-15">
               <p className="text-2xl mb-5 ml-2">What we should call you ?</p>
-              {<Normal_input placeHolder="Enter your name " />}
+              {
+                <Normal_input
+                  placeHolder="Enter your name "
+                  name={name}
+                  setName={setName}
+                />
+              }
             </div>
             <div className="w-[40%] flex justify-center gap-20">
               <div className="">
@@ -42,6 +51,8 @@ const DetailReservation = () => {
                     range={[1, 12]}
                     limit={limit}
                     setLimit={setLimit}
+                    count={adults}
+                    setCount={setAdults}
                   />
                 }
               </div>
@@ -52,6 +63,8 @@ const DetailReservation = () => {
                     range={[0, 11]}
                     limit={limit}
                     setLimit={setLimit}
+                    count={child}
+                    setCount={setChild}
                   />
                 }
               </div>
@@ -67,7 +80,7 @@ const DetailReservation = () => {
                 bgClass="bg-sega-green"
               />
             }
-            <div className="flex w-[50%] justify-center items-center ">
+            <div className="flex w-[50%] justify-center items-center mt-12">
               {text.split("").map((word, i) => (
                 <p
                   key={`error-text-${i}`}

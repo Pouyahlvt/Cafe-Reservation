@@ -5,23 +5,26 @@ import gsap from "gsap";
 
 interface NormalProps {
   placeHolder: string;
+  name: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface NumProps {
   range: number[];
   limit: number;
   setLimit: React.Dispatch<React.SetStateAction<number>>;
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const Normal_input = ({ placeHolder }: NormalProps) => {
+export const Normal_input = ({ placeHolder, name, setName }: NormalProps) => {
   const [isFocuse, setIsFocuse] = useState(false);
-  const [text, setText] = useState("");
   const textRef = useRef(null);
 
   useEffect(() => {
     if (!textRef.current) return;
     const text = textRef.current;
-    if (isFocuse) {
+    if (isFocuse || name.length > 0) {
       gsap.to(text, {
         opacity: 0,
         x: 30,
@@ -36,7 +39,7 @@ export const Normal_input = ({ placeHolder }: NormalProps) => {
         ease: "power2.out",
       });
     }
-  }, [isFocuse]);
+  }, [isFocuse, name.length]);
   return (
     <div className="w-full">
       <div
@@ -48,9 +51,9 @@ export const Normal_input = ({ placeHolder }: NormalProps) => {
       <input
         onFocus={() => setIsFocuse(true)}
         onBlur={() => setIsFocuse(false)}
-        value={text}
+        value={name}
         autoComplete="off"
-        onChange={(e) => setText(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
         type="text"
         className="flex w-full text-2xl font-museo py-4 px-4 outline-0  rounded-t-2xl z-20"
       />
@@ -59,7 +62,13 @@ export const Normal_input = ({ placeHolder }: NormalProps) => {
   );
 };
 
-export const Num_input = ({ range, limit, setLimit }: NumProps) => {
+export const Num_input = ({
+  range,
+  limit,
+  setLimit,
+  count,
+  setCount,
+}: NumProps) => {
   const [num, setNum] = useState(0);
   const numsRef = useRef<HTMLParagraphElement | null>(null);
   const numRange = Array.from(
@@ -73,6 +82,7 @@ export const Num_input = ({ range, limit, setLimit }: NumProps) => {
       if (!numsRef.current) return;
     } else {
       setNum(num + 1);
+      setCount(count + 1);
       setLimit((i) => i - 1);
     }
   };
@@ -82,6 +92,7 @@ export const Num_input = ({ range, limit, setLimit }: NumProps) => {
       setNum(num);
     } else {
       setNum(num - 1);
+      setCount(count - 1);
       setLimit((i) => i + 1);
     }
   };
