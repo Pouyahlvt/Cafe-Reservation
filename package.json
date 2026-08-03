@@ -12,12 +12,11 @@
     "@fontsource-variable/museomoderno": "^5.2.9",
     "@gsap/react": "^2.1.2",
     "@prisma/adapter-pg": "^7.9.0",
-    "@prisma/client": "^7.9.0",
+    "@prisma/client": "^7.9.1",
     "gsap": "^3.15.0",
     "lucide-react": "^1.24.0",
     "next": "16.2.10",
     "pg": "^8.22.0",
-    "prisma": "^7.9.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-icons": "^5.7.0",
@@ -30,6 +29,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "prisma": "^7.9.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
