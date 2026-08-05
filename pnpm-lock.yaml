@@ -48,6 +48,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.3.2
+      '@types/dotenv':
+        specifier: ^8.2.3
+        version: 8.2.3
       '@types/node':
         specifier: ^20
         version: 20.19.43
@@ -57,6 +60,9 @@ importers:
       '@types/react-dom':
         specifier: ^19
         version: 19.2.3(@types/react@19.2.17)
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
       eslint:
         specifier: ^9
         version: 9.39.5(jiti@2.7.0)
@@ -767,6 +773,10 @@ packages:
 
   '@types/d3-time@3.0.0':
     resolution: {integrity: sha512-sZLCdHvBUcNby1cB6Fd3ZBrABbjz3v1Vm90nysCQ6Vt7vd6e/h9Lt7SiJUoEX0l4Dzc7P5llKyhqSi1ycSf1Hg==}
+
+  '@types/dotenv@8.2.3':
+    resolution: {integrity: sha512-g2FXjlDX/cYuc5CiQvyU/6kkbP1JtmGzh0obW50zD7OKeILVL0NSpPWLXVfqoAGQjom2/SLLx9zHq0KXvD6mbw==}
+    deprecated: This is a stub types definition. dotenv provides its own type definitions, so you do not need this installed.
 
   '@types/estree@1.0.9':
     resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
@@ -3281,6 +3291,10 @@ snapshots:
   '@types/d3-time-format@2.1.0': {}
 
   '@types/d3-time@3.0.0': {}
+
+  '@types/dotenv@8.2.3':
+    dependencies:
+      dotenv: 17.4.2
 
   '@types/estree@1.0.9': {}
 
