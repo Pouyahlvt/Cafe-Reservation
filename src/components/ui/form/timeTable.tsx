@@ -4,6 +4,8 @@ import { useState } from "react";
 
 const Time_table = () => {
   const [mode, setMode] = useState("date");
+  const [date, setDate] = useState(0);
+  const [meal, setMeal] = useState("");
   return (
     <div className="w-[80%] h-[50%] mt-10 rounded-xl mx-auto">
       <div className="flex mx-auto w-fit  bg-sega-green/30 py-2 rounded-full">
@@ -26,30 +28,49 @@ const Time_table = () => {
         </div>
       </div>
       <div
-        className={`w-[90%] mx-auto mt-10 rounded-3xl border-2 border-forest-moss 
-        ${mode === "date" ? "h-50  bg-forest-moss/30" : "h-15 bg-forest-moss/10"} transition-all duration-500 ease-in-out`}>
-        <h2 className="mt-3 text-2xl text-muted-teal text-center">
+        className={`w-[90%] mx-auto mt-10 rounded-3xl border-2 border-forest-moss overflow-hidden 
+        ${mode === "date" ? "h-45  bg-forest-moss/30" : "h-15 bg-forest-moss/10"} transition-all duration-500 ease-in-out`}>
+        <h2 className="mt-3 text-2xl text-muted-teal text-center ">
           Choose your Date .
         </h2>
-        <div className="w-[96%] mx-auto h-30 mt-5 rounded-2xl bg-muted-teal flex gap-3 justify-center items-center">
-          {[21, 22, 23, 24, 25, 26, 27].map((date, i) => (
+        <div className="w-[96%] mx-auto h-25 mt-5 rounded-2xl bg-muted-teal flex gap-3 justify-center items-center ">
+          {[21, 22, 23, 24, 25, 26, 27].map((day, i) => (
             <div
+              onClick={() => setDate(day)}
               key={`date-${i}`}
-              className={`w-1/8 h-[90%] bg-dark-spruce rounded-xl flex justify-center items-center `}>
-              <div className="text-2xl text-forest-moss ">
-                {date}
-                <p className="text-xl text-center">fri</p>
+              className={`w-1/8 h-[85%] bg-dark-spruce rounded-xl flex justify-center items-center cursor-pointer
+              hover:bg-dark-spruce/80 transition-all duration-500 ease-in-out ${date === day ? "w-[95%]  " : date > 0 ? "opacity-0 w-0 overflow-hidden absolute -z-50" : ""}`}>
+              <div className="text-2xl text-forest-moss select-none">
+                {day}
+                <p className="text-xl text-center ">fri</p>
               </div>
             </div>
           ))}
+          <button
+            onClick={() => setDate(0)}
+            className={`absolute z-30 w-20 h-20  flex items-center justify-center text-4xl text-forest-moss cursor-pointer
+            ${date > 0 ? "translate-x-80" : "opacity-0 translate-x-100"} transition-all duration-500 ease-in-out hover:scale-120`}>
+            ←
+          </button>
         </div>
       </div>
       <div
-        className={`w-[90%] mx-auto mt-2 rounded-3xl border-2 border-forest-moss 
-        ${mode === "date" ? "h-15  bg-forest-moss/10" : "h-50  bg-forest-moss/30"} transition-all duration-500 ease-in-out`}>
+        className={`w-[90%] mx-auto mt-2 rounded-3xl border-2 border-forest-moss overflow-hidden
+        ${mode === "date" ? "h-15  bg-forest-moss/10" : "h-40  bg-forest-moss/30"} transition-all duration-500 ease-in-out`}>
         <h2 className="mt-3 text-2xl text-muted-teal text-center">
           Choose your meal time .
         </h2>
+        <div className="w-[95%] h-20 gap-7 flex justify-center items-center mt-4">
+          {["Breakfast", "Lunch", "Dinner"].map((FoodMeal, i) => (
+            <button
+              onClick={() => setMeal(FoodMeal)}
+              key={`meal-${i}`}
+              className={` h-8/10 text-2xl text-dark-spruce font-semibold flex  items-center justify-center rounded-full cursor-pointer
+              transition-all duration-500 ease-out  hover:bg-muted-teal ${meal === FoodMeal ? "w-9/10 bg-muted-teal" : meal.length > 2 ? "-z-50 absolute opacity-0" : "border-2 w-[25%] bg-muted-teal/50"}`}>
+              {FoodMeal}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
