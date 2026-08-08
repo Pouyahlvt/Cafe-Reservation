@@ -5,13 +5,30 @@ import HoverButton from "@/src/components/ui/button";
 import gsap from "gsap";
 import { Normal_input, Num_input } from "@/src/components/ui/form/inputs";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const DetailReservation = () => {
+  const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [limit, setLimit] = useState(11);
   const [adults, setAdults] = useState(1);
   const [child, setChild] = useState(0);
   const text = "! Limit Gustes is 12 ,at least 1 adults.";
+  const [erorr, setError] = useState("");
+  const router = useRouter();
+
+  console.debug(erorr);
+
+  useEffect(() => {
+    const verifiedEmail = sessionStorage.getItem("verifiedEmail");
+
+    if (verifiedEmail) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setEmail(verifiedEmail);
+    }
+
+    console.log(email);
+  }, [email]);
 
   useEffect(() => {
     const errEl = document.getElementsByClassName("error-text");
@@ -27,6 +44,59 @@ const DetailReservation = () => {
       stagger: 0.07,
     });
   }, []);
+
+  const save_details = async () => {
+    try {
+      setError("");
+
+      if (!email) {
+        setError("Verified email not found");
+        return;
+      }
+
+      if (!name.trim()) {
+        setError("Please enter your name");
+        return;
+      }
+
+      if (adults < 1) {
+        setError("At least 1 adult is required");
+        return;
+      }
+
+      if (adults + child > 12) {
+        setError("Maximum 12 guests are allowed");
+        return;
+      }
+
+      const res = await fetch("/api/reserve-details", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          name,
+          adults,
+          children: child,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error);
+      }
+
+      console.log("Reservation details saved:", data);
+
+      // Next step
+      // router.push("/reservation/table");
+      router.push("/reservation/time");
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Something went wrong");
+    }
+  };
 
   return (
     <div className="w-full h-screen bg-dark-spruce font-museo text-forest-moss">
@@ -74,6 +144,7 @@ const DetailReservation = () => {
             {
               <HoverButton
                 text="Let's go"
+                onClick={save_details}
                 BclassName="text-4xl border-2 w-[50%] mt-15 ml-15 h-22 rounded-full border-forest-moss"
                 TclassName="button-text-email text-5xl text-forest-moss font-bold"
                 scaleNum={35}

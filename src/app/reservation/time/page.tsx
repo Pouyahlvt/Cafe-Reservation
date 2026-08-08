@@ -21,7 +21,10 @@ const Time_page = () => {
             />
           }
           <div className="flex w-full justify-center items-center">
-            <p className="mt-20 text-2xl mr-15 text-forest-moss">{`Reserve ${date.day > 0 ? " on " + date.week + " " + date.day + " " + date.month : "''Date ''"} for ${meal.length > 1 ? meal : "'Meal'"} `}</p>
+            <p className="mt-20 text-2xl mr-15 text-forest-moss">
+              {`Reserve ${date.day > 0 ? " on " + date.week + " " + date.day + " " + date.month : "''Date ''"} for 
+              ${meal.length > 1 ? meal : "'Meal'"} `}
+            </p>
 
             {
               <HoverButton

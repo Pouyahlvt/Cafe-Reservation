@@ -65,6 +65,8 @@ const Reservation = () => {
         throw new Error(data.error);
       }
 
+      sessionStorage.setItem("verifiedEmail", email);
+
       setStep("done");
       console.log("verified is success", data);
     } catch (err) {
