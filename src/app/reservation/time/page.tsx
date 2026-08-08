@@ -6,7 +6,7 @@ import HoverButton from "@/src/components/ui/button";
 import { useState } from "react";
 
 const Time_page = () => {
-  const [date, setDate] = useState(0);
+  const [date, setDate] = useState({ day: 0, week: "", month: "" });
   const [meal, setMeal] = useState("");
   return (
     <div className="bg-dark-spruce">
@@ -14,14 +14,14 @@ const Time_page = () => {
         <div className="w-full h-full">
           {
             <Time_table
-              meal={meal}
               date={date}
+              meal={meal}
               setDate={setDate}
               setMeal={setMeal}
             />
           }
           <div className="flex w-full justify-center items-center">
-            <p className="mt-20 text-2xl mr-15 text-forest-moss">{`On ${date > 0 ? date + " 'fri' " : "''Date ''"} for ${meal.length > 1 ? meal : "'Meal'"} `}</p>
+            <p className="mt-20 text-2xl mr-15 text-forest-moss">{`Reserve ${date.day > 0 ? " on " + date.week + " " + date.day + " " + date.month : "''Date ''"} for ${meal.length > 1 ? meal : "'Meal'"} `}</p>
 
             {
               <HoverButton

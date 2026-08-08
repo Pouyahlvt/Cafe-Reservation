@@ -3,14 +3,30 @@
 import { useState } from "react";
 
 interface Props {
-  date: number;
-  setDate: React.Dispatch<React.SetStateAction<number>>;
+  date: { day: number; week: string; month: string };
+  setDate: React.Dispatch<
+    React.SetStateAction<{ day: number; week: string; month: string }>
+  >;
   meal: string;
   setMeal: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Time_table = ({ date, setDate, meal, setMeal }: Props) => {
   const [mode, setMode] = useState("date");
+  const toDay = new Date();
+
+  const date_arr = Array.from({ length: 7 }, (_, i: number) => {
+    const date = new Date(toDay);
+    date.setDate(date.getDate() + i);
+
+    return {
+      day: date.getDate(),
+      week: date.toString().slice(0, 3),
+      month: date.toString().slice(4, 7),
+    };
+  });
+  console.log(date_arr);
+
   return (
     <div className="w-[80%] h-[50%] mt-10 rounded-xl mx-auto">
       <div className="flex mx-auto w-fit  bg-sega-green/30 py-2 rounded-full">
@@ -39,15 +55,21 @@ const Time_table = ({ date, setDate, meal, setMeal }: Props) => {
           Choose your Date .
         </h2>
         <div className="w-[96%] mx-auto h-25 mt-5 rounded-2xl bg-muted-teal flex items-center px-2  ">
-          {[21, 22, 23, 24, 25, 26, 27].map((day, i) => (
+          {date_arr.map((dateDay, i) => (
             <div
-              onClick={() => setDate(day)}
+              onClick={() =>
+                setDate({
+                  day: dateDay.day,
+                  week: dateDay.week,
+                  month: dateDay.month,
+                })
+              }
               key={`date-${i}`}
               className={`w-1/8 h-[85%] bg-dark-spruce rounded-xl flex justify-center items-center cursor-pointer mx-auto
-               transition-all duration-300 ease-in-out ${date === day ? "bg-sega-green text-dark-spruce" : " text-forest-moss hover:bg-dark-spruce/80"}`}>
-              <div className="text-2xl  select-none">
-                {day}
-                <p className="text-xl text-center ">fri</p>
+               transition-all duration-300 ease-in-out ${date.day === dateDay.day ? "bg-sega-green text-dark-spruce" : " text-forest-moss hover:bg-dark-spruce/80"}`}>
+              <div className="text-2xl  select-none text-center">
+                {dateDay.day}
+                <p className="text-xl text-center ">{dateDay.week}</p>
               </div>
             </div>
           ))}
