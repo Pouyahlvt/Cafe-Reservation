@@ -49,7 +49,7 @@ const Time_table = ({ date, setDate, meal, setMeal }: Props) => {
         </div>
       </div>
       <div
-        className={`w-[90%] mx-auto mt-10 rounded-3xl border-2 border-forest-moss overflow-hidden 
+        className={`w-[90%] mx-auto mt-5 rounded-3xl border-2 border-forest-moss overflow-hidden 
         ${mode === "date" ? "h-45  bg-forest-moss/30" : "h-15 bg-forest-moss/10"} transition-all duration-500 ease-in-out`}>
         <h2 className="mt-3 text-2xl text-muted-teal text-center ">
           Choose your Date .

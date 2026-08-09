@@ -11,7 +11,7 @@ const Time_page = () => {
   return (
     <div className="bg-dark-spruce">
       <Form_template text="Time details">
-        <div className="w-full h-full">
+        <div className="w-full h-full -mt-5">
           {
             <Time_table
               date={date}
@@ -20,17 +20,17 @@ const Time_page = () => {
               setMeal={setMeal}
             />
           }
-          <div className="flex w-full justify-center items-center">
-            <p className="mt-20 text-2xl mr-15 text-forest-moss">
+          <div className="flex relative  w-full justify-center items-center">
+            <p className="-mt-14  w-full flex  justify-center text-2xl absolute  text-forest-moss">
               {`Reserve ${date.day > 0 ? " on " + date.week + " " + date.day + " " + date.month : "''Date ''"} for 
               ${meal.length > 1 ? meal : "'Meal'"} `}
             </p>
 
             {
               <HoverButton
-                text="OK "
-                BclassName="z-30 mt-20 border-2 border text-forest-moss w-[30%] h-20 rounded-full "
-                TclassName="button-text-email text-3xl text-forest-moss font-bold "
+                text="Let's Go"
+                BclassName="flex absolute z-30 mt-20 border-2 border text-forest-moss w-[30%] h-20 rounded-full "
+                TclassName="button-text-email text-3xl text-forest-moss font-bold select-none"
                 scaleNum={25}
                 bgClass="bg-sega-green"
               />
