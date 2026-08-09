@@ -4,7 +4,7 @@ import Form_template from "@/src/components/ui/form/formTemplate";
 import HoverButton from "@/src/components/ui/button";
 import gsap from "gsap";
 import { Normal_input, Num_input } from "@/src/components/ui/form/inputs";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 const DetailReservation = () => {
@@ -13,11 +13,10 @@ const DetailReservation = () => {
   const [limit, setLimit] = useState(11);
   const [adults, setAdults] = useState(1);
   const [child, setChild] = useState(0);
-  const text = "! Limit Gustes is 12 ,at least 1 adults.";
-  const [erorr, setError] = useState("");
+  const [step, setStep] = useState("");
+  const [error, setError] = useState("");
+  const errRef = useRef<HTMLParagraphElement>(null);
   const router = useRouter();
-
-  console.debug(erorr);
 
   useEffect(() => {
     const verifiedEmail = sessionStorage.getItem("verifiedEmail");
@@ -31,41 +30,47 @@ const DetailReservation = () => {
   }, [email]);
 
   useEffect(() => {
-    const errEl = document.getElementsByClassName("error-text");
-    if (!errEl) return;
+    if (!errRef.current) return;
 
     const tl = gsap.timeline();
-    tl.to(".error-text", {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      duration: 0.5,
+
+    tl.to(errRef.current, {
+      opacity: 0,
+      y: 40,
+      scale: 0,
+      duration: 0.3,
       ease: "power3.out",
-      stagger: 0.07,
+    }).to(errRef.current, {
+      scale: 1,
+      y: 0,
+      opacity: 1,
+      duration: 1.2,
+      ease: "elastic.out",
     });
-  }, []);
+  }, [error]);
 
   const save_details = async () => {
     try {
       setError("");
+      setStep("adding");
 
       if (!email) {
-        setError("Verified email not found");
+        setError("Verified email not found !");
         return;
       }
 
       if (!name.trim()) {
-        setError("Please enter your name");
+        setError("Please enter your name !");
         return;
       }
 
       if (adults < 1) {
-        setError("At least 1 adult is required");
+        setError("At least 1 adult is required !");
         return;
       }
 
       if (adults + child > 12) {
-        setError("Maximum 12 guests are allowed");
+        setError("Maximum 12 guests are allowed !");
         return;
       }
 
@@ -123,6 +128,7 @@ const DetailReservation = () => {
                     setLimit={setLimit}
                     count={adults}
                     setCount={setAdults}
+                    setError={setError}
                   />
                 }
               </div>
@@ -135,30 +141,27 @@ const DetailReservation = () => {
                     setLimit={setLimit}
                     count={child}
                     setCount={setChild}
+                    setError={setError}
                   />
                 }
               </div>
             </div>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center ">
             {
               <HoverButton
-                text="Let's go"
+                text={step === "adding" ? ". . ." : "Let's go"}
                 onClick={save_details}
                 BclassName="text-4xl border-2 w-[50%] mt-15 ml-15 h-22 rounded-full border-forest-moss"
-                TclassName="button-text-email text-5xl text-forest-moss font-bold"
+                TclassName={`button-text-email text-5xl text-forest-moss font-bold ${step === "adding" ? "animate-bounce " : ""}`}
                 scaleNum={35}
                 bgClass="bg-sega-green"
               />
             }
-            <div className="flex w-[50%] justify-center items-center mt-12">
-              {text.split("").map((word, i) => (
-                <p
-                  key={`error-text-${i}`}
-                  className={`error-text ${word === " " ? "ml-2" : ""} blur-md translate-y-5 opacity-0 cursor-default`}>
-                  {word}
-                </p>
-              ))}
+            <div className="w-[40%] ml-auto h-20 mt-15 items-center justify-center text-2xl text-forest-moss font-semibold flex">
+              <p className="opacity-100 scale-100 translate-y-10" ref={errRef}>
+                {`${error.length > 1 ? "Error : " : ""} ${error} `}
+              </p>
             </div>
           </div>
         </div>

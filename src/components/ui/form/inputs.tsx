@@ -15,6 +15,7 @@ interface NumProps {
   setLimit: React.Dispatch<React.SetStateAction<number>>;
   count: number;
   setCount: React.Dispatch<React.SetStateAction<number>>;
+  setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const Normal_input = ({ placeHolder, name, setName }: NormalProps) => {
@@ -68,6 +69,7 @@ export const Num_input = ({
   setLimit,
   count,
   setCount,
+  setError,
 }: NumProps) => {
   const [num, setNum] = useState(0);
   const numsRef = useRef<HTMLParagraphElement | null>(null);
@@ -79,6 +81,7 @@ export const Num_input = ({
   const next = () => {
     if (num === numRange.length - 1 || limit === 0) {
       setNum(num);
+      setError("You Reach The limit !");
       if (!numsRef.current) return;
     } else {
       setNum(num + 1);
@@ -90,6 +93,7 @@ export const Num_input = ({
   const prev = () => {
     if (num === 0) {
       setNum(num);
+      setError("No Lower , my friend !");
     } else {
       setNum(num - 1);
       setCount(count - 1);

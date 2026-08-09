@@ -17,7 +17,7 @@ const Time_table = ({ date, setDate, meal, setMeal }: Props) => {
 
   const date_arr = Array.from({ length: 7 }, (_, i: number) => {
     const date = new Date(toDay);
-    date.setDate(date.getDate() + i);
+    date.setDate(date.getDate() + i + 1);
 
     return {
       day: date.getDate(),
