@@ -13,6 +13,7 @@ const Reservation = () => {
   const email_input = useRef<HTMLInputElement>(null);
   const timelienPlaceholder = useRef<gsap.core.Timeline | null>(null);
   const timelienVeify = useRef<gsap.core.Timeline | null>(null);
+  const errText = useRef(null);
   const [activeInput, setActiveInput] = useState(false);
   const [email, setEmail] = useState("");
   const [step, setStep] = useState("send");
@@ -241,25 +242,22 @@ const Reservation = () => {
 
   //error massage animations.
   useEffect(() => {
-    const errEl = document.getElementsByClassName("error-text");
-    if (!errEl) return;
+    if (!errText.current) return;
+    const err = errText.current;
 
     const tl = gsap.timeline();
-    tl.to(".error-text", {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      duration: 0.5,
-      ease: "power3.out",
-      stagger: 0.07,
-    }).to(".error-text", {
+    tl.to(err, {
       opacity: 0,
-      delay: 4,
-      y: 5,
-      filter: "blur(10px)",
-      duration: 0.5,
+      y: 20,
+      scale: 0.5,
+      duration: 0.3,
       ease: "power3.out",
-      stagger: 0.1,
+    }).to(err, {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "elastic.out",
     });
   }, [error]);
 
@@ -372,14 +370,11 @@ const Reservation = () => {
               />
             }
             <div className="text-xl text-forest-moss mt-10 w-full justify-center flex">
-              {error.length > 0 &&
-                `Error : ${error}`.split("").map((word, i) => (
-                  <p
-                    key={`error-text-${i}`}
-                    className={`error-text ${word === " " ? "ml-2" : ""} blur-md translate-y-5 opacity-0 cursor-default`}>
-                    {word}
-                  </p>
-                ))}
+              <p
+                ref={errText}
+                className={`translate-y-5 opacity-0 scale-0 cursor-default select-none`}>
+                {`${error.length > 1 ? "Error : " : ""} ${error}`}
+              </p>
             </div>
           </div>
         </div>
