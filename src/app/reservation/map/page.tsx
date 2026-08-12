@@ -1,7 +1,6 @@
 "use client";
 
 import CafeMap from "@/src/components/ui/cafemap";
-import HoverButton from "@/src/components/ui/button";
 import { useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -139,9 +138,7 @@ export default function ChooseTablePage() {
         },
         "-=1",
       );
-    }
-
-    if (!(selected.length > 2)) {
+    } else {
       tl.to(".button-del", {
         y: -120,
         duration: 1.2,
@@ -162,15 +159,16 @@ export default function ChooseTablePage() {
     <div className="w-full h-screen bg-dark-spruce">
       <div
         className={`first-mass fixed w-60 h-20 top-5 left-4 flex z-50 border-muted-teal border-2 rounded-full 
-        bg-muted-teal/30 backdrop-blur-md items-center justify-center -translate-y-30 `}>
+          bg-muted-teal/30 backdrop-blur-md items-center justify-center -translate-y-30 `}>
         <p className="text-2xl text-muted-teal font-museo font-bold tracking-tighter select-none">
           Choose a Table !
         </p>
       </div>
       <button
         className={`button-del fixed w-60 h-20 top-5 left-4 flex z-50 border-muted-teal border-2 rounded-full 
-        bg-muted-teal/30 backdrop-blur-md items-center justify-center -translate-y-30 
-        text-2xl text-muted-teal font-museo font-bold tracking-tight cursor-pointer `}
+          bg-muted-teal/30 backdrop-blur-md items-center justify-center -translate-y-30 
+          text-2xl text-muted-teal font-museo font-bold tracking-tight cursor-pointer 
+          hover:bg-muted-teal hover:text-dark-spruce transition-colors duration-300 ease-in-out `}
         onClick={() => setSelected("")}>
         Delete Table
       </button>
