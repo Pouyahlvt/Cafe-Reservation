@@ -35,11 +35,12 @@ export const Table = ({
       onPointerDown={(e) => e.stopPropagation()}
       onClick={clickHandler}
       className={`absolute flex z-10 cursor-pointer transition-all duration-300 
-      ease-in-out ${reserved ? "opacity-60" : "hover:scale-105"} 
+      ease-in-out ${reserved ? "opacity-60" : "hover:scale-105"} ${table_num === 6 ? "rotate-180" : ""} 
       ${selected === `table-${table_id}` ? "animate-pulse" : selected.length > 2 ? "scale-0" : ""}`}>
       <Image
         width={size}
-        height={1}
+        height={size}
+        unoptimized
         src={`/cafemapimages/table${table_num}.png`}
         alt={`table-${table_num}`}
       />

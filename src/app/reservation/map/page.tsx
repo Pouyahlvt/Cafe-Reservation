@@ -17,9 +17,9 @@ interface TableData {
 export default function ChooseTablePage() {
   const tableData: TableData[] = [
     // 8-person tables (top row)
-    { table_id: 8001, table_num: 8, x: 355, y: 35, size: 225, reserved: false },
-    { table_id: 8002, table_num: 8, x: 585, y: 35, size: 225, reserved: false },
-    { table_id: 8003, table_num: 8, x: 820, y: 35, size: 225, reserved: false },
+    { table_id: 8001, table_num: 8, x: 355, y: 55, size: 225, reserved: false },
+    { table_id: 8002, table_num: 8, x: 585, y: 55, size: 225, reserved: false },
+    { table_id: 8003, table_num: 8, x: 820, y: 55, size: 225, reserved: false },
 
     // 6-person tables (bottom row)
     {
@@ -44,26 +44,26 @@ export default function ChooseTablePage() {
     {
       table_id: 4001,
       table_num: 4,
-      x: 450,
-      y: 300,
-      size: 200,
+      x: 500,
+      y: 330,
+      size: 120,
       reserved: false,
     },
-    { table_id: 4002, table_num: 4, x: 650, y: 300, size: 200, reserved: true },
+    { table_id: 4002, table_num: 4, x: 700, y: 330, size: 120, reserved: true },
     {
       table_id: 4003,
       table_num: 4,
-      x: 450,
-      y: 520,
-      size: 200,
+      x: 500,
+      y: 550,
+      size: 120,
       reserved: false,
     },
     {
       table_id: 4004,
       table_num: 4,
-      x: 650,
-      y: 520,
-      size: 200,
+      x: 700,
+      y: 550,
+      size: 120,
       reserved: false,
     },
 
@@ -71,9 +71,9 @@ export default function ChooseTablePage() {
     {
       table_id: 1201,
       table_num: 12,
-      x: 850,
+      x: 900,
       y: 350,
-      size: 200,
+      size: 140,
       reserved: false,
     },
 
@@ -81,33 +81,33 @@ export default function ChooseTablePage() {
     {
       table_id: 2001,
       table_num: 2,
-      x: 1100,
-      y: 265,
-      size: 200,
+      x: 1130,
+      y: 330,
+      size: 120,
       reserved: false,
     },
     {
       table_id: 2002,
       table_num: 2,
-      x: 1100,
-      y: 365,
-      size: 200,
+      x: 1130,
+      y: 430,
+      size: 120,
       reserved: true,
     },
     {
       table_id: 2003,
       table_num: 2,
-      x: 1100,
-      y: 465,
-      size: 200,
+      x: 1130,
+      y: 530,
+      size: 120,
       reserved: false,
     },
     {
       table_id: 2004,
       table_num: 2,
-      x: 1100,
-      y: 565,
-      size: 200,
+      x: 1130,
+      y: 630,
+      size: 120,
       reserved: false,
     },
   ];
