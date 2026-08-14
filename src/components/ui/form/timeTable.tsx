@@ -2,30 +2,30 @@
 
 import { useState } from "react";
 
+interface DateType {
+  day: number;
+  week: string;
+  month: string;
+  full_date: string;
+}
+
 interface Props {
-  date: { day: number; week: string; month: string };
+  arr: DateType[];
+  date: DateType;
   setDate: React.Dispatch<
-    React.SetStateAction<{ day: number; week: string; month: string }>
+    React.SetStateAction<{
+      day: number;
+      week: string;
+      month: string;
+      full_date: string;
+    }>
   >;
   meal: string;
   setMeal: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Time_table = ({ date, setDate, meal, setMeal }: Props) => {
+const Time_table = ({ arr, date, setDate, meal, setMeal }: Props) => {
   const [mode, setMode] = useState("date");
-  const toDay = new Date();
-
-  const date_arr = Array.from({ length: 7 }, (_, i: number) => {
-    const date = new Date(toDay);
-    date.setDate(date.getDate() + i + 1);
-
-    return {
-      day: date.getDate(),
-      week: date.toString().slice(0, 3),
-      month: date.toString().slice(4, 7),
-    };
-  });
-  console.log(date_arr);
 
   return (
     <div className="w-[80%] h-[50%] mt-10 rounded-xl mx-auto">
@@ -55,13 +55,14 @@ const Time_table = ({ date, setDate, meal, setMeal }: Props) => {
           Choose your Date .
         </h2>
         <div className="w-[96%] mx-auto h-25 mt-5 rounded-2xl bg-muted-teal flex items-center px-2  ">
-          {date_arr.map((dateDay, i) => (
+          {arr.map((dateDay, i) => (
             <div
               onClick={() =>
                 setDate({
                   day: dateDay.day,
                   week: dateDay.week,
                   month: dateDay.month,
+                  full_date: dateDay.full_date,
                 })
               }
               key={`date-${i}`}

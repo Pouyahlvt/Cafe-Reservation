@@ -93,6 +93,9 @@ const DetailReservation = () => {
         throw new Error(data.error);
       }
 
+      const number_guests = (adults + child).toString();
+
+      sessionStorage.setItem("guests", number_guests);
       console.log("Reservation details saved:", data);
 
       // Next step
