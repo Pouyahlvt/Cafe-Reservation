@@ -5,6 +5,19 @@ import Time_table from "@/src/components/ui/form/timeTable";
 import HoverButton from "@/src/components/ui/button";
 import { useEffect, useState } from "react";
 
+export interface Table {
+  id: number;
+  table_id: number;
+  date: string;
+  breakfast_reserved: boolean;
+  lunch_reserved: boolean;
+  dinner_reserved: boolean;
+  table_num: number;
+  x: number;
+  y: number;
+  size: number;
+}
+
 const Time_page = () => {
   const [date, setDate] = useState({
     day: 0,
@@ -13,20 +26,29 @@ const Time_page = () => {
     full_date: "",
   });
   const [meal, setMeal] = useState("");
-  const [tables, setTables] = useState([]);
+  const [tables, setTables] = useState<Table[]>([]);
+  const [guestsNum, setGuestsNum] = useState(0);
+  const [Error, setError] = useState("");
 
-  // useEffect(() => {
-  //   async function get_data(url: string) {
-  //     const res = await fetch(url);
-  //     if (!res.ok) return;
-  //     const data = res.json();
+  useEffect(() => {
+    const num_guests = sessionStorage.getItem("guests");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setGuestsNum(Number(num_guests));
 
-  //     setTables([...tables, data]);
-  //   }
+    try {
+      async function get_data() {
+        const res = await fetch("http://localhost:3000/api/tables/all");
+        if (!res.ok) return;
+        const data = await res.json();
 
-  //   get_data("api/tables?date=2026-08-15&meal=lunch");
-  //   console.log(tables);
-  // });
+        setTables(data);
+      }
+
+      get_data();
+    } catch (err) {
+      console.error("my Error : " + err);
+    }
+  }, []);
 
   const toDay = new Date();
 
@@ -46,6 +68,71 @@ const Time_page = () => {
       full_date: formattedDate,
     };
   });
+
+  const day_status = Array.from({ length: 7 }, (_, i) => {
+    const lunch_tables = tables.filter(
+      (table) =>
+        table.table_num >= guestsNum &&
+        !table.lunch_reserved &&
+        table.date.includes(date_arr[i].full_date),
+    );
+    const dinner_tables = tables.filter(
+      (table) =>
+        table.table_num >= guestsNum &&
+        !table.lunch_reserved &&
+        table.date.includes(date_arr[i].full_date),
+    );
+    const breakfast_tables = tables.filter(
+      (table) =>
+        table.table_num >= guestsNum &&
+        !table.lunch_reserved &&
+        table.date.includes(date_arr[i].full_date),
+    );
+
+    return {
+      [date_arr[i].full_date]: {
+        lunch: lunch_tables.length > 0 ? false : true,
+        dinner: dinner_tables.length > 0 ? false : true,
+        breakfast: breakfast_tables.length > 0 ? false : true,
+      },
+    };
+  });
+
+  const meal_status = Array.from({ length: 3 }, (_, i) => {
+    const meals = ["breakfast", "lunch", "dinner"];
+
+    const lunch_days = Array.from({ length: 7 }, (_, i) => {
+      if (!Object.values(day_status[i])[0].lunch) {
+        return Object.keys(day_status[i])[0];
+      } else {
+        return Object.keys(day_status[i])[0] + "is full";
+      }
+    });
+
+    const dinner_days = Array.from({ length: 7 }, (_, i) => {
+      if (!Object.values(day_status[i])[0].dinner) {
+        return Object.keys(day_status[i])[0];
+      } else {
+        return Object.keys(day_status[i])[0] + "is full";
+      }
+    });
+
+    const breakfast_days = Array.from({ length: 7 }, (_, i) => {
+      if (!Object.values(day_status[i])[0].breakfast) {
+        return Object.keys(day_status[i])[0];
+      } else {
+        return Object.keys(day_status[i])[0] + "is full";
+      }
+    });
+
+    const all_dates = [[...breakfast_days], [...lunch_days], [...dinner_days]];
+
+    return {
+      [meals[i]]: all_dates[i],
+    };
+  });
+
+  console.log(meal_status);
 
   return (
     <div className="bg-dark-spruce">
