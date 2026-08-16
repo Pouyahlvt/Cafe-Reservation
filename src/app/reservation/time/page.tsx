@@ -4,6 +4,8 @@ import Form_template from "@/src/components/ui/form/formTemplate";
 import Time_table from "@/src/components/ui/form/timeTable";
 import HoverButton from "@/src/components/ui/button";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Alert from "@/src/components/ui/alert";
 
 export interface Table {
   id: number;
@@ -28,8 +30,18 @@ const Time_page = () => {
   const [meal, setMeal] = useState("");
   const [tables, setTables] = useState<Table[]>([]);
   const [guestsNum, setGuestsNum] = useState(0);
-  // const [Error, setError] = useState("");
+  const router = useRouter();
+  const [alert, setAlert] = useState<{
+    show: boolean;
+    text: string;
+    type?: "success" | "error" | "warning" | "info";
+  }>({
+    show: false,
+    text: "",
+    type: "info",
+  });
 
+  // here i get all tables for timetable 🐊🐊🐊🐊
   useEffect(() => {
     const num_guests = sessionStorage.getItem("guests");
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -49,6 +61,23 @@ const Time_page = () => {
       console.error("my Error : " + err);
     }
   }, []);
+
+  // button click handler.
+  const hanlde_click = () => {
+    // send for table section
+    if (meal.length > 2 && date.full_date.length > 2) {
+      sessionStorage.setItem("date", date.full_date);
+      sessionStorage.setItem("meal", meal);
+
+      router.push("/reservation/map");
+    } else {
+      setAlert({
+        show: true,
+        text: "{date}  &  {meal} are not Choosen",
+        type: "warning",
+      });
+    }
+  };
 
   const toDay = new Date();
 
@@ -134,6 +163,14 @@ const Time_page = () => {
 
   return (
     <div className="bg-dark-spruce">
+      {alert.show && (
+        <Alert
+          text={alert.text}
+          type={alert.type}
+          duration={5000}
+          onClose={() => setAlert({ show: false, text: "", type: "info" })}
+        />
+      )}
       <Form_template text="Time details">
         <div className="w-full h-full -mt-5">
           {
@@ -156,6 +193,7 @@ const Time_page = () => {
             {
               <HoverButton
                 text="Let's Go"
+                onClick={hanlde_click}
                 BclassName="flex absolute z-30 mt-20 border-2 border text-forest-moss w-[30%] h-20 rounded-full "
                 TclassName="button-text-email text-3xl text-forest-moss font-bold select-none"
                 scaleNum={25}
