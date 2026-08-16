@@ -47,6 +47,18 @@ const Time_table = ({
   const [userMeal, setUserMeal] = useState<[string, number]>(["", 0]);
 
   const date_handler = (dateDay: DateType, index: number) => {
+    // Check if this date is available for the selected meal
+    if (userMeal[0].length > 3) {
+      const isDateAvailable = data_meal[userMeal[1]]?.[userMeal[0]]?.some(
+        (dateStr) => dateStr === dateDay.full_date,
+      );
+
+      // If date is not available for the selected meal, prevent selection
+      if (!isDateAvailable) {
+        return;
+      }
+    }
+
     setDate({
       day: dateDay.day,
       week: dateDay.week,
@@ -57,6 +69,17 @@ const Time_table = ({
   };
 
   const meal_handler = (FoodMeal: string, index: number) => {
+    // Check if this meal is already selected for the current day
+    if (userDay[0].length > 3) {
+      const isMealTaken =
+        data_day[userDay[1]]?.[userDay[0]]?.[FoodMeal as Meal];
+
+      // If meal is already taken for this day, prevent selection
+      if (isMealTaken) {
+        return;
+      }
+    }
+
     setMeal(FoodMeal);
     setUserMeal([FoodMeal, index]);
   };
@@ -107,9 +130,9 @@ const Time_table = ({
                    data_meal[userMeal[1]]?.[userMeal[0]]?.[i] ===
                    dateDay.full_date
                  ) && userMeal[0].length > 3
-                   ? "opacity-60 select-none"
+                   ? "opacity-60 select-none cursor-not-allowed"
                    : ""
-               }}
+               }
                `}>
               <div className="text-2xl  select-none text-center">
                 {dateDay.day}
@@ -134,8 +157,16 @@ const Time_table = ({
               key={`meal-${i}`}
               className={` h-7/10 text-2xl  font-semibold flex  items-center justify-center rounded-full cursor-pointer
               transition-all duration-300 ease-out w-1/4 text-dark-spruce 
-              ${meal === FoodMeal ? "bg-dark-spruce/70 text-muted-teal shadow-2xl/50 -translate-y-2" : "hover:bg-muted-teal  bg-muted-teal/70"}
-              ${data_day[userDay[1]]?.[userDay[0]]?.[FoodMeal as Meal] ? "opacity-55 select-none" : ""}
+              ${
+                meal === FoodMeal
+                  ? "bg-dark-spruce/70 text-muted-teal shadow-2xl/50 -translate-y-2"
+                  : "hover:bg-muted-teal  bg-muted-teal/70"
+              }
+              ${
+                data_day[userDay[1]]?.[userDay[0]]?.[FoodMeal as Meal]
+                  ? "opacity-55 select-none cursor-not-allowed"
+                  : ""
+              }
               `}>
               {FoodMeal}
             </button>
