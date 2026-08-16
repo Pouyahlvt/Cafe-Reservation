@@ -28,7 +28,7 @@ const Time_page = () => {
   const [meal, setMeal] = useState("");
   const [tables, setTables] = useState<Table[]>([]);
   const [guestsNum, setGuestsNum] = useState(0);
-  const [Error, setError] = useState("");
+  // const [Error, setError] = useState("");
 
   useEffect(() => {
     const num_guests = sessionStorage.getItem("guests");
@@ -132,14 +132,14 @@ const Time_page = () => {
     };
   });
 
-  console.log(meal_status);
-
   return (
     <div className="bg-dark-spruce">
       <Form_template text="Time details">
         <div className="w-full h-full -mt-5">
           {
             <Time_table
+              data_meal={meal_status}
+              data_day={day_status}
               arr={date_arr}
               date={date}
               meal={meal}
