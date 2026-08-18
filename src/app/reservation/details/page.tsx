@@ -96,7 +96,7 @@ const DetailReservation = () => {
       const number_guests = (adults + child).toString();
 
       sessionStorage.setItem("guests", number_guests);
-      console.log("Reservation details saved:", data);
+      sessionStorage.setItem("reservationId", data.reservation.id);
 
       // Next step
       // router.push("/reservation/table");

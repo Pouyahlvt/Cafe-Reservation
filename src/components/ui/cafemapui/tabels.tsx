@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useMemo } from "react";
 
 interface Props {
   x?: number;
@@ -23,8 +24,13 @@ export const Table = ({
   selected,
   setSelected,
 }: Props) => {
+  const avaible = useMemo(() => {
+    const guests_num = sessionStorage.getItem("guests");
+    return Number(guests_num) <= table_num && !reserved;
+  }, [reserved, table_num]);
+
   const clickHandler = () => {
-    if (!reserved) {
+    if (avaible) {
       setSelected(`table-${table_id}`);
     }
   };
@@ -35,7 +41,7 @@ export const Table = ({
       onPointerDown={(e) => e.stopPropagation()}
       onClick={clickHandler}
       className={`absolute flex z-10 cursor-pointer transition-all duration-300 
-      ease-in-out ${reserved ? "opacity-60" : "hover:scale-105"} ${table_num === 6 ? "rotate-180" : ""} 
+      ease-in-out ${avaible ? "hover:scale-105" : "opacity-60 "} ${table_num === 6 ? "rotate-180" : ""} 
       ${selected === `table-${table_id}` ? "animate-pulse" : selected.length > 2 ? "scale-0" : ""}`}>
       <Image
         width={size}
