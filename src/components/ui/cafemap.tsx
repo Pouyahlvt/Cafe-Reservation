@@ -78,11 +78,12 @@ const CafeMap = ({ tableData, selected, setSelected }: Props) => {
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}>
         <Image
+          loading="eager"
           width={1400}
           height={1050}
           src="/cafefloor.jpg"
           alt="cafe floor"
-          className="absolute top-0 left-0 z-0 max-w-none"
+          className="absolute top-0 left-0 z-0 max-w-none w-350 h-262.5"
           draggable={false}
         />
 
