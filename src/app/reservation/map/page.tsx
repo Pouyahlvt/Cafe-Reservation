@@ -45,34 +45,32 @@ export default function ChooseTablePage() {
 
   const reserveTable = async () => {
     try {
-      // 1. Get the information saved in sessionStorage
       const date = sessionStorage.getItem("date");
       const meal = sessionStorage.getItem("meal");
       const reservationId = sessionStorage.getItem("reservationId");
 
+      console.log("DATE:", date);
+      console.log("MEAL:", meal);
       console.log("RESERVATION ID:", reservationId);
+      console.log("SELECTED:", selected);
 
-      // 2. Make sure we have everything
       if (!date || !meal || !reservationId) {
         console.error("Missing reservation information");
         return;
       }
 
-      // 3. Make sure the user selected a table
       if (!selected) {
         console.error("Please select a table");
         return;
       }
 
-      // 4. Convert "table-5" → 5
       const tableId = Number(selected.replace("table-", ""));
 
-      if (!tableId) {
+      if (!Number.isInteger(tableId) || tableId < 1) {
         console.error("Invalid table");
         return;
       }
 
-      // 5. Send the reservation to our API
       const res = await fetch("/api/tables/reserve", {
         method: "POST",
         headers: {
@@ -88,15 +86,17 @@ export default function ChooseTablePage() {
 
       const data = await res.json();
 
-      // 6. API returned an error
+      console.log("STATUS:", res.status);
+      console.log("API RESPONSE:", data);
+
       if (!res.ok) {
-        console.error(data.error);
+        console.error("RESERVATION FAILED:", data.error);
         return;
       }
 
-      // 7. Reservation succeeded
+      console.log("RESERVATION COMPLETED:", data.reservation);
+
       setSuccess(true);
-      console.log("TABLE RESERVED:", data);
     } catch (error) {
       console.error("RESERVE TABLE ERROR:", error);
     }

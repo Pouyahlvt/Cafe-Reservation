@@ -8,24 +8,35 @@ export async function POST(request: Request) {
     const reservationId = body.reservationId;
     const tableId = Number(body.tableId);
     const date = body.date;
-    const meal = body.meal;
+    const meal = body.meal?.trim().toLowerCase();
 
-    // Validate required values
-    if (!reservationId || !tableId || !date || !meal) {
+    // -----------------------------
+    // Validate
+    // -----------------------------
+
+    if (!reservationId) {
       return NextResponse.json(
-        {
-          error: "reservationId, tableId, date and meal are required",
-        },
+        { error: "Reservation ID is required" },
         { status: 400 },
       );
     }
 
-    // Validate meal
+    if (!Number.isInteger(tableId) || tableId < 1) {
+      return NextResponse.json({ error: "Invalid table ID" }, { status: 400 });
+    }
+
+    if (!date) {
+      return NextResponse.json({ error: "Date is required" }, { status: 400 });
+    }
+
     if (!["breakfast", "lunch", "dinner"].includes(meal)) {
       return NextResponse.json({ error: "Invalid meal" }, { status: 400 });
     }
 
-    // Check that the reservation exists
+    // -----------------------------
+    // Check reservation exists
+    // -----------------------------
+
     const reservations = await sql`
       SELECT id
       FROM "Reservation"
@@ -40,10 +51,15 @@ export async function POST(request: Request) {
       );
     }
 
-    let result;
+    // -----------------------------
+    // Reserve table for the
+    // specific date + meal
+    // -----------------------------
+
+    let reservedTable;
 
     if (meal === "breakfast") {
-      result = await sql`
+      reservedTable = await sql`
         UPDATE public.table_days
         SET breakfast_reserved = true
         WHERE table_id = ${tableId}
@@ -54,7 +70,7 @@ export async function POST(request: Request) {
     }
 
     if (meal === "lunch") {
-      result = await sql`
+      reservedTable = await sql`
         UPDATE public.table_days
         SET lunch_reserved = true
         WHERE table_id = ${tableId}
@@ -65,7 +81,7 @@ export async function POST(request: Request) {
     }
 
     if (meal === "dinner") {
-      result = await sql`
+      reservedTable = await sql`
         UPDATE public.table_days
         SET dinner_reserved = true
         WHERE table_id = ${tableId}
@@ -75,33 +91,57 @@ export async function POST(request: Request) {
       `;
     }
 
-    // No row was updated = table was already reserved
-    if (!result || result.length === 0) {
+    // -----------------------------
+    // If nothing was updated,
+    // table is already reserved
+    // or date/table doesn't exist
+    // -----------------------------
+
+    if (!reservedTable || reservedTable.length === 0) {
       return NextResponse.json(
         {
-          error: "This table is already reserved for this meal.",
+          error: "This table is already reserved for this date and meal",
         },
         { status: 409 },
       );
     }
 
-    // Connect the selected table to the reservation
-    const reservationsUpdated = await sql`
+    // -----------------------------
+    // Update existing Reservation
+    // -----------------------------
+
+    const updatedReservation = await sql`
       UPDATE "Reservation"
-      SET table_id = ${tableId}
+      SET
+        date = ${date},
+        meal = ${meal},
+        table_id = ${tableId}
       WHERE id = ${reservationId}
       RETURNING *;
     `;
 
+    if (updatedReservation.length === 0) {
+      return NextResponse.json(
+        { error: "Failed to update reservation" },
+        { status: 500 },
+      );
+    }
+
+    // -----------------------------
+    // Success
+    // -----------------------------
+
     return NextResponse.json({
       success: true,
-      reservation: reservationsUpdated[0],
+      reservation: updatedReservation[0],
     });
   } catch (error) {
-    console.error("RESERVE TABLE ERROR:", error);
+    console.error("TABLE RESERVE ERROR:", error);
 
     return NextResponse.json(
-      { error: "Failed to reserve table" },
+      {
+        error: "Failed to reserve table",
+      },
       { status: 500 },
     );
   }

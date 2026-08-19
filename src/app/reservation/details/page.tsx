@@ -55,22 +55,22 @@ const DetailReservation = () => {
       setStep("adding");
 
       if (!email) {
-        setError("Verified email not found !");
+        setError("Verified email not found!");
         return;
       }
 
       if (!name.trim()) {
-        setError("Please enter your name !");
+        setError("Please enter your name!");
         return;
       }
 
       if (adults < 1) {
-        setError("At least 1 adult is required !");
+        setError("At least 1 adult is required!");
         return;
       }
 
       if (adults + child > 12) {
-        setError("Maximum 12 guests are allowed !");
+        setError("Maximum 12 guests are allowed!");
         return;
       }
 
@@ -90,18 +90,25 @@ const DetailReservation = () => {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error);
+        throw new Error(data.error || "Failed to save reservation details");
       }
 
-      const number_guests = (adults + child).toString();
+      const reservationId = data.reservation.id;
 
-      sessionStorage.setItem("guests", number_guests);
-      sessionStorage.setItem("reservationId", data.reservation.id);
+      if (!reservationId) {
+        throw new Error("Reservation ID was not returned");
+      }
 
-      // Next step
-      // router.push("/reservation/table");
+      sessionStorage.setItem("guests", (adults + child).toString());
+
+      sessionStorage.setItem("reservationId", reservationId);
+
+      console.log("RESERVATION CREATED:", reservationId);
+
       router.push("/reservation/time");
     } catch (error) {
+      setStep("details");
+
       setError(error instanceof Error ? error.message : "Something went wrong");
     }
   };

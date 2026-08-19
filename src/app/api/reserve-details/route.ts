@@ -11,17 +11,14 @@ export async function POST(request: Request) {
     const adults = Number(body.adults);
     const children = Number(body.children);
 
-    // Check email
     if (!email) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    // Check name
     if (!name) {
       return NextResponse.json({ error: "Name is required" }, { status: 400 });
     }
 
-    // Check adults
     if (!Number.isInteger(adults) || adults < 1) {
       return NextResponse.json(
         { error: "At least 1 adult is required" },
@@ -29,7 +26,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check children
     if (!Number.isInteger(children) || children < 0) {
       return NextResponse.json(
         { error: "Invalid number of children" },
@@ -37,7 +33,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Maximum guests
     if (adults + children > 12) {
       return NextResponse.json(
         { error: "Maximum 12 guests are allowed" },
@@ -45,9 +40,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Find the verified user
     const users = await sql`
-      SELECT id, email, verified
+      SELECT id
       FROM "User"
       WHERE email = ${email}
         AND verified = true
@@ -61,9 +55,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const user = users[0];
+    const reservationId = randomUUID();
 
-    // Create reservation
     const reservations = await sql`
       INSERT INTO "Reservation" (
         id,
@@ -73,13 +66,13 @@ export async function POST(request: Request) {
         "userId"
       )
       VALUES (
-        ${randomUUID()},
+        ${reservationId},
         ${name},
         ${adults},
         ${children},
-        ${user.id}
+        ${users[0].id}
       )
-      RETURNING *
+      RETURNING *;
     `;
 
     return NextResponse.json({
@@ -87,7 +80,7 @@ export async function POST(request: Request) {
       reservation: reservations[0],
     });
   } catch (error) {
-    console.error("RESERVATION DETAILS ERROR:", error);
+    console.error("DETAIL RESERVATION ERROR:", error);
 
     return NextResponse.json(
       { error: "Failed to save reservation details" },
