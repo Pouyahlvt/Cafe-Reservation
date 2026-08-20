@@ -123,8 +123,8 @@ const DetailReservation = () => {
               {
                 <Normal_input
                   placeHolder="Enter your name "
-                  name={name}
-                  setName={setName}
+                  state={name}
+                  setState={setName}
                 />
               }
             </div>

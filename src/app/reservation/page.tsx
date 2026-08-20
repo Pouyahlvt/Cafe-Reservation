@@ -1,9 +1,10 @@
 "use client";
 
 import Form_template from "@/src/components/ui/form/formTemplate";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import HoverButton from "@/src/components/ui/button";
-import gsap from "gsap";
+import { Normal_input } from "@/src/components/ui/form/inputs";
+import Alert from "@/src/components/ui/alert";
 
 type detailType = {
   reservationId: string;
@@ -14,7 +15,6 @@ type detailType = {
 
 const ReserveCheck = () => {
   const [reservationID, setReservationID] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [details, setDetails] = useState<detailType>({
     reservationId: "",
@@ -23,16 +23,52 @@ const ReserveCheck = () => {
     tableId: "",
   });
   const [checked, setChecked] = useState(false);
+  const [alert, setAlert] = useState<{
+    show: boolean;
+    text: string;
+    type?: "success" | "error" | "warning" | "info";
+  }>({
+    show: false,
+    text: "",
+    type: "info",
+  });
 
   const check = async () => {
+    setLoading(true);
+
     try {
-      setLoading(true);
-      if (reservationID.length === 0) return;
-      setError("Write Your Reservation ID");
+      if (reservationID.length === 0) {
+        setAlert({
+          show: true,
+          text: "Reservation Code Input is Empty",
+          type: "warning",
+        });
+        setLoading(false);
+        return;
+      }
+
+      if (reservationID.length < 15) {
+        setAlert({
+          show: true,
+          text: "Reservation Code is too short",
+          type: "warning",
+        });
+
+        setLoading(false);
+        return;
+      }
 
       const res = await fetch(`/api/reserve-details/${reservationID}`);
 
-      if (!res.ok) return;
+      if (!res.ok) {
+        setAlert({
+          show: true,
+          text: "Reservation Code is incorect",
+          type: "warning",
+        });
+        setLoading(false);
+        return;
+      }
 
       const data = await res.json();
 
@@ -40,22 +76,25 @@ const ReserveCheck = () => {
       setChecked(true);
     } catch (err) {
       console.error("check function : " + err);
+      setAlert({
+        show: true,
+        text: "Reservation Code Input is Empty",
+        type: "warning",
+      });
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    const tl = gsap.timeline();
-
-    tl.to(".input-line", {
-      width: "calc(100% - 80px)",
-      duration: 1.2,
-      delay: 0.5,
-      ease: "power3.out",
-    });
-  }, []);
   return (
     <div className="bg-dark-spruce w-full h-screen">
+      {alert.show && (
+        <Alert
+          text={alert.text}
+          type={alert.type}
+          duration={5000}
+          onClose={() => setAlert({ show: false, text: "", type: "info" })}
+        />
+      )}
       <Form_template text="reservation check">
         <div className="w-full h-full relative">
           <div
@@ -75,20 +114,15 @@ const ReserveCheck = () => {
               ))}
             </div>
           </div>
-          <p
-            className={`input-mass mt-24 ml-15 text-2xl text-forest-moss font-semibold absolute
-            ${reservationID.length > 0 ? "opacity-0 translate-x-15" : "translate-x-0"}
-            transition-all duration-300 ease-out `}>
-            Enter your Reservation code
-          </p>
-          <input
-            value={reservationID ?? ""}
-            onChange={(e) => setReservationID(e.target.value)}
-            type="text"
-            className="outline-0 mx-10 w-[calc(100%-80px)] h-15 rounded-t-2xl 
-            mt-20 text-2xl px-5 text-forest-moss font-semibold font-museo "
-          />
-          <div className="input-line h-1 mx-auto w-0 bg-forest-moss rounded-full "></div>
+          <div className="w-[calc(100%-80px)] mx-auto mt-20">
+            {
+              <Normal_input
+                placeHolder="Write your Reservation Code"
+                state={reservationID}
+                setState={setReservationID}
+              />
+            }
+          </div>
           {
             <HoverButton
               onClick={check}

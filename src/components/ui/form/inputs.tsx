@@ -2,11 +2,12 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 interface NormalProps {
   placeHolder: string;
-  name: string;
-  setName: React.Dispatch<React.SetStateAction<string>>;
+  state: string;
+  setState: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface NumProps {
@@ -18,14 +19,15 @@ interface NumProps {
   setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const Normal_input = ({ placeHolder, name, setName }: NormalProps) => {
+export const Normal_input = ({ placeHolder, state, setState }: NormalProps) => {
   const [isFocuse, setIsFocuse] = useState(false);
   const textRef = useRef(null);
+  const lineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!textRef.current) return;
     const text = textRef.current;
-    if (isFocuse || name.length > 0) {
+    if (isFocuse || state.length > 0) {
       gsap.to(text, {
         opacity: 0,
         x: 30,
@@ -40,9 +42,20 @@ export const Normal_input = ({ placeHolder, name, setName }: NormalProps) => {
         ease: "power2.out",
       });
     }
-  }, [isFocuse, name.length]);
+  }, [isFocuse, state.length]);
+
+  useGSAP(() => {
+    if (!lineRef.current) return;
+
+    gsap.to(lineRef.current, {
+      width: "100%",
+      duration: 1,
+      delay: 0.7,
+      ease: "power3.out",
+    });
+  }, []);
   return (
-    <div className="w-full">
+    <div className="w-full text-forest-moss">
       <div
         ref={textRef}
         className="absolute mt-4 ml-4 text-2xl opacity-50 pointer-events-none">
@@ -52,13 +65,16 @@ export const Normal_input = ({ placeHolder, name, setName }: NormalProps) => {
       <input
         onFocus={() => setIsFocuse(true)}
         onBlur={() => setIsFocuse(false)}
-        value={name}
+        value={state}
         autoComplete="off"
-        onChange={(e) => setName(e.target.value)}
+        onChange={(e) => setState(e.target.value)}
         type="text"
-        className="flex w-full text-2xl font-museo py-4 px-4 outline-0  rounded-t-2xl z-20"
+        className="flex w-full text-2xl font-museo py-4 px-4 outline-0 font-semibold 
+         rounded-t-2xl z-20"
       />
-      <div className="w-full h-1 rounded-full bg-forest-moss "></div>
+      <div
+        ref={lineRef}
+        className="w-0 mx-auto  h-1 rounded-full bg-forest-moss "></div>
     </div>
   );
 };
