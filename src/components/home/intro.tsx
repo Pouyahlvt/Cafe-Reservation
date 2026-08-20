@@ -118,7 +118,7 @@ const Intro_section = () => {
           opacity-0 -translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50"
           />
         </Link>
-        <Link href="/reserved">
+        <Link href="/reservation">
           <HoverButton
             text="Reserved"
             arrow={true}
