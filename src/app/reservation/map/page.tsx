@@ -4,7 +4,7 @@ import CafeMap from "@/src/components/ui/cafemap";
 import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { CopyIcon, CopyCheckIcon } from "lucide-react";
+import Success_mass from "@/src/components/ui/succesMassage";
 
 interface TableData {
   table_id: number;
@@ -20,20 +20,9 @@ export default function ChooseTablePage() {
   const [selected, setSelected] = useState("");
   const [success, setSuccess] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
-  const successDivRef = useRef<HTMLDivElement>(null);
   const [reservationId, setReservationId] = useState("");
-  //it's for success massage should move to components ✔️✔️✔️✔️✔️
-  const [copie, setCopie] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  //and this is for success massage should move ✔️✔️✔️✔️✔️
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(reservationId);
-      setCopie(true);
-    } catch (err) {
-      console.error("Failed to copy: ", err);
-    }
-  };
   useEffect(() => {
     const id = sessionStorage.getItem("reservationId");
 
@@ -45,6 +34,7 @@ export default function ChooseTablePage() {
 
   const reserveTable = async () => {
     try {
+      setLoading(true);
       const date = sessionStorage.getItem("date");
       const meal = sessionStorage.getItem("meal");
       const reservationId = sessionStorage.getItem("reservationId");
@@ -98,6 +88,7 @@ export default function ChooseTablePage() {
 
       setSuccess(true);
     } catch (error) {
+      setLoading(false);
       console.error("RESERVE TABLE ERROR:", error);
     }
   };
@@ -121,22 +112,6 @@ export default function ChooseTablePage() {
       console.error(err);
     }
   }, []);
-
-  useGSAP(() => {
-    if (!successDivRef.current) return;
-
-    const successDiv = successDivRef.current;
-
-    const tl = gsap.timeline();
-
-    if (success) {
-      tl.to(successDiv, {
-        y: 0,
-        duration: 0.7,
-        ease: "power3.out",
-      });
-    }
-  }, [success]);
 
   useGSAP(() => {
     if (!navRef.current) return;
@@ -190,44 +165,7 @@ export default function ChooseTablePage() {
 
   return (
     <div className="w-full h-screen bg-dark-spruce">
-      <div
-        ref={successDivRef}
-        className="fixed h-screen w-full bg-muted-teal -translate-y-full flex z-50 overflow-hidden text-dark-spruce font-museo ">
-        <div className="w-full">
-          <p className="success-mass text-center  text-8xl font-extrabold mt-20">
-            Success Reservation
-          </p>
-          <div className="w-full mt-15">
-            <p className="text-center text-4xl font-bold tracking-tight">
-              Your Reservation Code{" "}
-            </p>
-            <div className="flex w-full mt-10 justify-center">
-              <div className="w-[65%] h-25 bg-dark-spruce rounded-4xl flex items-center">
-                <p className="text-dark-spruce bg-muted-teal w-[85%]  flex items-center px-10 h-18 text-xl ml-4 rounded-2xl">
-                  {reservationId}
-                </p>
-                <div
-                  className="aspect-square h-18 bg-muted-teal rounded-2xl ml-auto mr-4 flex 
-                items-center justify-between">
-                  {
-                    <CopyIcon
-                      onClick={handleCopy}
-                      size={40}
-                      className={`mx-auto cursor-pointer ${copie ? "hidden" : ""}`}
-                    />
-                  }
-                  {
-                    <CopyCheckIcon
-                      size={40}
-                      className={`mx-auto cursor-pointer ${copie ? "" : "hidden"}`}
-                    />
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {<Success_mass success={success} reservationId={reservationId} />}
       <div
         ref={navRef}
         className="fixed flex z-30 bottom-5 left-10  bg-sega-green/50 shadow-2xl/50 backdrop-blur-sm 
@@ -257,8 +195,9 @@ export default function ChooseTablePage() {
           className={`reserve-button  w-60 h-15 flex z-40 border-muted-teal border-2 rounded-full 
           bg-muted-teal/30 backdrop-blur-md items-center justify-center translate-x-75 right-2
           text-2xl text-muted-teal font-museo font-bold tracking-tight cursor-pointer absolute
-          hover:bg-muted-teal hover:text-dark-spruce transition-colors duration-300 ease-in-out `}>
-          Reserve Table
+          hover:bg-muted-teal hover:text-dark-spruce transition-colors duration-300 ease-in-out 
+          ${loading ? "animate-bounce" : ""}`}>
+          {loading ? ". . ." : "Reserve Table"}
         </button>
       </div>
 
