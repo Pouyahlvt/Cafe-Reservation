@@ -7,16 +7,26 @@ interface PropsInfo {
   icon: ComponentType<{ className?: string }>;
   text?: string;
   className?: string;
+  link?: string;
 }
 
 const Info_div = ({
   icon: Icon,
   text = "information",
   className = "",
+  link = "",
 }: PropsInfo) => {
   const divRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
+
+  const handleClick = () => {
+    if (link?.length > 5) {
+      window.open(`${link}`, "_blank");
+    } else {
+      alert("Not Exist Yet :)");
+    }
+  };
 
   useEffect(() => {
     if (!divRef.current || !textRef.current) return;
@@ -82,6 +92,7 @@ const Info_div = ({
       ref={divRef}
       onMouseEnter={play_animation}
       onMouseLeave={clear_animation}
+      onClick={handleClick}
       className={`
         w-20 h-17 relative
         rounded-b-full
