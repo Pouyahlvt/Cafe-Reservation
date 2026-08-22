@@ -108,13 +108,13 @@ const Time_page = () => {
     const dinner_tables = tables.filter(
       (table) =>
         table.table_num >= guestsNum &&
-        !table.lunch_reserved &&
+        !table.dinner_reserved &&
         table.date.includes(date_arr[i].full_date),
     );
     const breakfast_tables = tables.filter(
       (table) =>
         table.table_num >= guestsNum &&
-        !table.lunch_reserved &&
+        !table.breakfast_reserved &&
         table.date.includes(date_arr[i].full_date),
     );
 

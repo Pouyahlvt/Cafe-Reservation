@@ -196,8 +196,10 @@ export default function ChooseTablePage() {
           bg-muted-teal/30 backdrop-blur-md items-center justify-center translate-x-75 right-2
           text-2xl text-muted-teal font-museo font-bold tracking-tight cursor-pointer absolute
           hover:bg-muted-teal hover:text-dark-spruce transition-colors duration-300 ease-in-out 
-          ${loading ? "animate-bounce" : ""}`}>
-          {loading ? ". . ." : "Reserve Table"}
+          `}>
+          <p className={`${loading ? "animate-bounce" : ""}`}>
+            {loading ? ". . ." : "Reserve Table"}
+          </p>
         </button>
       </div>
 
