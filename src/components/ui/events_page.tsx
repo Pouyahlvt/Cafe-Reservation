@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import HoverButton from "./button";
 import Gallery from "./gallery";
 
@@ -14,7 +15,7 @@ interface Props {
 const Event_page = ({
   event_name = "Events-name",
   event_text = "Event-text should be here",
-  date = "9/11/2001",
+  date = "8/23/2026",
   full = false,
   images = [
     "/greenwall.png",
@@ -24,6 +25,28 @@ const Event_page = ({
     "/greenwall.png",
   ],
 }: Props) => {
+  const [isActive, setIsActive] = useState(false);
+
+  const toDay = new Date();
+
+  useEffect(() => {
+    const month = toDay.getUTCMonth() + 1;
+    const day = toDay.getUTCDate();
+    const year = toDay.getUTCFullYear();
+    const avaibaleDay = [1, 2, 3, 4, 5, 6];
+
+    console.log(`${month}/${day}/${year}`);
+
+    avaibaleDay.forEach((dayAv) => {
+      if (`${month}/${day + dayAv}/${year}` === date) {
+        setIsActive(true);
+        console.log(`i Am here :)`);
+      }
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="relative w-full h-full overflow-hidden flex">
       <div className="w-[40%] h-full">
@@ -34,7 +57,7 @@ const Event_page = ({
           {event_text}
         </p>
         <div className="absolute bottom-35 ml-15 ">
-          {!full && (
+          {!full && isActive && (
             <HoverButton
               text="Events Reservation"
               bgClass="bg-dark-spruce"
@@ -43,9 +66,14 @@ const Event_page = ({
                backdrop-blur-xs bg-dark-spruce/50 shadow-2xl/50 flex mt-auto"
             />
           )}
-          {full && (
+          {full && !isActive && (
             <p className="text-3xl font-museo font-bold text-dark-spruce">
               {"The event is ended :("}
+            </p>
+          )}
+          {!full && !isActive && (
+            <p className="text-3xl font-museo font-bold text-dark-spruce">
+              {"The event has not started yet !"}
             </p>
           )}
         </div>
