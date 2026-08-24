@@ -85,8 +85,8 @@ const Intro_section = () => {
         className="select-none"
         draggable={false}
       />
-      <div className="door-sec absolute right-20 bottom-0  overflow-hidden">
-        <div className="w-4 h-4 rounded-full  absolute z-1 inset-0 ml-9 my-77 cursor-grab"></div>
+      <div className="door-sec absolute right-20 bottom-0  overflow-hidden max-md:hidden">
+        <div className="w-4 h-4 rounded-full  absolute z-1 inset-0 ml-9 my-77 cursor-grab "></div>
         <Image
           src="/door.png"
           alt="door"
@@ -97,25 +97,26 @@ const Intro_section = () => {
           priority
         />
       </div>
-      <div className="flex ml-10 mt-25">
+      <div className="flex ml-10 mt-25 max-md:justify-center">
         {header.map((word, i) => (
           <p
             key={`word-${i}`}
             className={`cafe-header text-8xl font-black scale-y-200 text-dark-spruce blur-xs
-          ${word === " " ? "ml-5" : ""} opacity-0  select-none cursor-default font-museo max-lg:text-6xl`}>
+          ${word === " " ? "ml-5" : ""} opacity-0  select-none cursor-default font-museo 
+          max-lg:text-6xl max-md:text-5xl max-sm:text-3xl max-sm:font-bold`}>
             {word}
           </p>
         ))}
       </div>
-      <div className="flex justify-center mt-60 gap-7">
+      <div className="flex justify-center mt-60 gap-7 max-md:grid max-md:grid-rows-1 max-md:gap-2">
         <Link href={"/reservation/verify"}>
           <HoverButton
             text="Reservation"
             arrow={true}
             bgClass="bg-dark-spruce"
-            TclassName=" text-2xl font-black font-museo"
+            TclassName=" text-2xl font-black font-museo max-md:text-xl"
             BclassName="reservation-button border border-forest-moss/50 rounded-full w-75 py-4 text-forest-moss
-          opacity-0 -translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50"
+          opacity-0 -translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50 max-md:w-60 "
           />
         </Link>
         <Link href="/reservation">
@@ -123,21 +124,22 @@ const Intro_section = () => {
             text="Reserved"
             arrow={true}
             bgClass="bg-dark-spruce"
-            TclassName=" text-2xl font-black font-museo"
+            TclassName=" text-2xl font-black font-museo max-md:text-xl max-md:mr-6"
             BclassName="reserved-button border border-forest-moss/50 rounded-full w-75 py-4 text-forest-moss
-          opacity-0 translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50"
+          opacity-0 translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50 max-md:w-60 "
           />
         </Link>
       </div>
-      <div className="w-full flex justify-center mt-10 text-dark-spruce font-museo">
+      <div className="w-full flex justify-center mt-10 text-dark-spruce font-museo ">
         {
           <MapPin className="address-text mr-2 blur-xs translate-y-5 opacity-0 " />
         }
         {locateText.map((word, i) => (
           <p
+          
             key={`word-${i}`}
             className={`text-xl address-text
-          ${word === " " ? "ml-1" : ""} blur-xs translate-y-5 opacity-0`}>
+          ${word === " " ? "ml-1" : ""} blur-xs translate-y-5 opacity-0 max-md:text-lg max-sm:text-sm max-sm:font-semibold `}>
             {word}
           </p>
         ))}

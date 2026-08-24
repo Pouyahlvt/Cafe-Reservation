@@ -12,6 +12,7 @@ const Footer = () => {
       "_blank",
     );
   };
+
   return (
     <div className="w-full h-screen bg-dark-spruce overflow-hidden">
       <h2
