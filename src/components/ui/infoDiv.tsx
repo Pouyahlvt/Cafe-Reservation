@@ -56,37 +56,6 @@ const Info_div = ({
     tl.current?.reverse();
   };
 
-  // const handleEnter = () => {
-  //   if (!divRef.current || !textRef.current) return;
-  //   const tl = gsap.timeline();
-
-  //   tl.to(divRef.current, {
-  //     height: 200,
-  //     duration: 0.3,
-  //     ease: "power.out",
-  //   }).to(textRef.current, {
-  //     opacity: 1,
-  //     duration: 0.3,
-  //     ease: "power.out",
-  //   });
-  // };
-
-  // const handleLeave = () => {
-  //   if (!divRef.current || !textRef.current) return;
-
-  //   const tl = gsap.timeline();
-
-  //   tl.to(textRef.current, {
-  //     opacity: 0,
-  //     duration: 0.3,
-  //     ease: "power.out",
-  //   }).to(divRef.current, {
-  //     height: 80,
-  //     duration: 0.6,
-  //     ease: "power3.inOut",
-  //   });
-  // };
-
   return (
     <div
       ref={divRef}
@@ -105,14 +74,18 @@ const Info_div = ({
         gap-2 z-10
         overflow-hidden
         ${className}
+        max-md:w-15 max-sm:w-12
       `}>
       <span
         ref={textRef}
         className="flex text-nowrap text-2xl text-dark-spruce mt-10 font-bold  rotate-90 font-museo opacity-0
-        -translate-y-5">
+        -translate-y-5 max-sm:text-xl">
         {text}
       </span>
-      <Icon className="absolute flex w-8 h-8 text-dark-spruce bottom-5 mx-auto inset-0 mt-auto drop-shadow-xl/30" />
+      <Icon
+        className="absolute flex w-8 h-8 text-dark-spruce bottom-5 mx-auto inset-0 mt-auto drop-shadow-xl/30
+      max-md:bottom-4 max-md:h-7 max-sm:bottom-2.5"
+      />
     </div>
   );
 };

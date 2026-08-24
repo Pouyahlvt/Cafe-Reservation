@@ -16,29 +16,39 @@ const Footer = () => {
   return (
     <div className="w-full h-screen bg-dark-spruce overflow-hidden">
       <h2
-        className=" w-full  font-museo scale-y-150 cursor-default text-center  
-      font-black text-forest-moss  text-[13rem] text-nowrap select-none drop-shadow-2xl/30 drop-shadow-forest-moss">
+        className="w-full font-museo scale-y-150 cursor-default  font-black text-forest-moss  
+        text-[10rem] text-nowrap select-none drop-shadow-2xl/30 drop-shadow-forest-moss max-lg:text-[8rem] lg:ml-15 md:ml-10 max-lg:scale-y-200 
+        max-md:text-[5rem] max-md:text-center max-md:scale-y-250 max-md:my-10 max-sm:text-[3rem] max-sm:scale-y-350">
         CAFE NAME
       </h2>
-      <div className="h-full w-full border-0 rounded-t-[100px] bg-muted-teal shadow-muted-teal shadow-2xl flex">
-        <div className="w-[35%] h-full overflow-hidden pb-10 pt-20">
-          <p className="text-4xl font-extrabold font-museo italic text-forest-moss text-center">
-            Hit The ROAD
-          </p>
-          {
-            <HoverButton
-              onClick={routeHandeler}
-              TclassName="text-4xl font-bold font-museo my-4 text-forest-moss"
-              BclassName="mx-auto border border-forest-moss/70 w-[70%] mt-10  rounded-full bg-muted-teal"
-              bgClass="bg-dark-spruce"
-              text="Let's Go"
-            />
-          }
-          <p className="ml-8 mt-14 text-xl font-museo text-forest-moss">
+      <div
+        className="h-full w-full border-0 rounded-t-[100px] bg-muted-teal shadow-muted-teal shadow-2xl flex 
+      max-lg:grid max-lg:grid-rows-2 max-sm:rounded-t-4xl max-sm:overflow-hidden">
+        <div
+          className="w-[35%] h-full overflow-hidden pb-10 pt-20 max-lg:row-start-2  
+         max-lg:w-full max-lg:p-5 max-lg:-mt-20 ">
+          <div className="max-lg:w-full max-lg:flex max-sm:grid max-lg:items-center max-lg:justify-center ">
+            <p className="text-4xl font-extrabold font-museo italic text-forest-moss text-center max-lg:ml-10 max-sm:text-3xl max-sm:ml-0">
+              Hit The ROAD
+            </p>
+            {
+              <HoverButton
+                onClick={routeHandeler}
+                TclassName="text-4xl font-bold font-museo my-4 text-forest-moss max-sm:text-2xl"
+                BclassName="mx-auto border border-forest-moss/70 w-[70%] mt-10  rounded-full bg-muted-teal
+                max-lg:mt-0 max-lg:w-[40%] max-sm:mt-4 max-sm:w-[85%]"
+                bgClass="bg-dark-spruce"
+                text="Let's Go"
+              />
+            }
+          </div>
+          <p className="ml-8 mt-14 text-xl font-museo text-forest-moss max-lg:mt-20 max-sm:text-lg max-sm:ml-2">
             © POUYA HALAVAT , 2026
           </p>
         </div>
-        <div className="h-full w-[65%] flex gap-10">
+        <div
+          className="h-full w-[65%] flex gap-10 max-lg:row-start-1 max-lg:justify-center max-lg:h-[70%] 
+        max-lg:w-full max-md:gap-7 max-sm:gap-5 ">
           <Info_div
             icon={FaInstagram}
             text="Instagram"
@@ -49,6 +59,7 @@ const Footer = () => {
             icon={FaEnvelope}
             text="Email"
             link="https://mail.google.com/mail/?view=cm&fs=1&to=pouyahalavat@gmail.com"
+            className="max-sm:hidden"
           />
           <Info_div
             icon={MapPin}
