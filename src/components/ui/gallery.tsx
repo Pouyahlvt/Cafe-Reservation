@@ -13,10 +13,61 @@ export default function Gallery({ images }: Props) {
 
   const refs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const next = () => setCurrent((prev) => (prev + 1) % images.length);
+  // Swipe tracking
+  const startX = useRef(0);
+  const startY = useRef(0);
+  const isDragging = useRef(false);
 
-  const prev = () =>
+  const next = () => {
+    setCurrent((prev) => (prev + 1) % images.length);
+  };
+
+  const prev = () => {
     setCurrent((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  // -----------------------------
+  // Swipe handlers
+  // -----------------------------
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    startX.current = e.clientX;
+    startY.current = e.clientY;
+    isDragging.current = true;
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (!isDragging.current) return;
+
+    isDragging.current = false;
+
+    const diffX = e.clientX - startX.current;
+    const diffY = e.clientY - startY.current;
+
+    // Ignore mostly vertical movement
+    if (Math.abs(diffY) > Math.abs(diffX)) return;
+
+    // Minimum swipe distance
+    const swipeDistance = 50;
+
+    if (Math.abs(diffX) < swipeDistance) return;
+
+    if (diffX < 0) {
+      // Finger moved left
+      next();
+    } else {
+      // Finger moved right
+      prev();
+    }
+  };
+
+  const handlePointerCancel = () => {
+    isDragging.current = false;
+  };
+
+  // -----------------------------
+  // GSAP animation
+  // -----------------------------
 
   useEffect(() => {
     refs.current.forEach((card, index) => {
@@ -24,8 +75,13 @@ export default function Gallery({ images }: Props) {
 
       let offset = index - current;
 
-      if (offset > images.length / 2) offset -= images.length;
-      if (offset < -images.length / 2) offset += images.length;
+      if (offset > images.length / 2) {
+        offset -= images.length;
+      }
+
+      if (offset < -images.length / 2) {
+        offset += images.length;
+      }
 
       let x = 0;
       let y = 0;
@@ -99,43 +155,48 @@ export default function Gallery({ images }: Props) {
   }, [current, images.length]);
 
   return (
-    <div className="relative flex  items-center justify-center w-full h-full overflow-hidden">
+    <div
+      className="relative flex items-center justify-center w-full h-full overflow-hidden touch-pan-y select-none"
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}>
+      {/* PREVIOUS BUTTON */}
       <button
         onClick={prev}
-        className="absolute left-8 z-50 text-5xl text-dark-spruce border-2 rounded-full h-12 
-        aspect-square shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] bg-forest-moss -translate-y-5
+        className="absolute left-8 z-50 text-5xl text-dark-spruce border-2 rounded-full h-12 aspect-square
+        shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] bg-forest-moss -translate-y-5
         cursor-pointer hover:scale-105 transition-all duration-150 ease-in-out active:scale-90">
-        <span className="flex -translate-y-2 translate-x-3.5  font-thin ">
-          ‹
-        </span>
+        <span className="flex -translate-y-2 translate-x-3.5 font-thin">‹</span>
       </button>
-
+      {/* 📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷 */}
       {images.map((img, index) => (
         <div
           key={index}
           ref={(el) => {
             refs.current[index] = el;
           }}
-          className={`absolute w-[40%] h-[50%] rounded-2xl overflow-hidden  ${current === index ? "shadow-2xl/70 z-20" : ""}`}>
+          className={`absolute w-[40%] h-[50%] rounded-2xl overflow-hidden cursor-grab ${
+            current === index ? "shadow-2xl/70 z-20" : ""
+          } ${isDragging ? "cursor-grab" : "cursor-grab"}`}>
           <Image
             src={img}
             alt="events-image"
             fill
             style={{ objectFit: "cover" }}
-            className="select-none"
+            className="select-none pointer-events-none "
             sizes="30vw"
             draggable={false}
             loading="eager"
           />
         </div>
       ))}
-
+      {/* NEXT BUTTON */}
       <button
         onClick={next}
-        className="absolute right-8 z-50 text-5xl text-dark-spruce border-2 rounded-full h-12 
-        aspect-square shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] bg-forest-moss -translate-y-5 
+        className="absolute right-8 z-50 text-5xl text-dark-spruce border-2 rounded-full h-12 aspect-square
+        shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] bg-forest-moss -translate-y-5
         cursor-pointer hover:scale-105 transition-all duration-150 ease-in-out active:scale-90">
-        <span className="flex -translate-y-2 translate-x-4  font-thin ">›</span>
+        <span className="flex -translate-y-2 translate-x-4 font-thin">›</span>
       </button>
     </div>
   );

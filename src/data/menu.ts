@@ -105,7 +105,7 @@ const menu_items = {
       "Honey",
     ],
 
-    "berry-blast-shake": [
+    "berry-blast": [
       "Blueberries",
       "Strawberries",
       "Raspberries",
@@ -113,11 +113,11 @@ const menu_items = {
       "Milk",
     ],
 
-    "banana-honey-shake": ["Banana", "Honey", "Milk", "Vanilla Ice Cream"],
+    "banana-honey": ["Banana", "Honey", "Milk", "Ice Cream"],
 
-    "mango-lassi-shake": ["Mango", "Yogurt", "Milk", "Cardamom"],
+    "mango-lassi": ["Mango", "Yogurt", "Milk", "Cardamom"],
 
-    "avocado-shake": ["Avocado", "Milk", "Honey", "Vanilla Ice Cream"],
+    "avocado-shake": ["Avocado", "Milk", "Honey", "Ice Cream"],
   },
   Breakfast: {
     "butter-croissant": ["Butter", "Flour", "Yeast"],
@@ -138,7 +138,7 @@ const menu_items = {
       "Lemon",
     ],
 
-    "smashed-pea-feta-toast": [
+    "smashed-pea": [
       "Sourdough Bread",
       "Green Peas",
       "Feta Cheese",
@@ -146,7 +146,7 @@ const menu_items = {
       "Olive Oil",
     ],
 
-    "tomato-mozzarella-toast": [
+    "tomato-mozzarella": [
       "Sourdough Bread",
       "Tomato",
       "Fresh Mozzarella",
@@ -174,12 +174,7 @@ const menu_items = {
 
     cheesecake: ["Cream Cheese", "Biscuit Base", "Butter"],
 
-    "san-sebastian-cheesecake": [
-      "Cream Cheese",
-      "Eggs",
-      "Heavy Cream",
-      "Sugar",
-    ],
+    "san-sebastian": ["Cream Cheese", "Eggs", "Heavy Cream", "Sugar"],
 
     "red-velvet": ["Cocoa", "Cream Cheese Frosting"],
 
@@ -265,15 +260,7 @@ const menu_items = {
     ],
 
     // 🍔 Burgers
-    "classic-beef-burger": [
-      "Burger Bun",
-      "Beef Patty",
-      "Cheddar Cheese",
-      "Lettuce",
-      "Tomato",
-      "Onion",
-      "Pickles",
-    ],
+    "classic-beef": ["Burger Bun", "Beef Patty", "Cheddar Cheese"],
 
     "crispy-chicken-burger": [
       "Burger Bun",

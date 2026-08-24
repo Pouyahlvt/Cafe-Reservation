@@ -15,7 +15,7 @@ interface Props {
 const Event_page = ({
   event_name = "Events-name",
   event_text = "Event-text should be here",
-  date = "8/23/2026",
+  date = "00/00/0000",
   full = false,
   images = [
     "/greenwall.png",
@@ -35,12 +35,9 @@ const Event_page = ({
     const year = toDay.getUTCFullYear();
     const avaibaleDay = [1, 2, 3, 4, 5, 6];
 
-    console.log(`${month}/${day}/${year}`);
-
     avaibaleDay.forEach((dayAv) => {
       if (`${month}/${day + dayAv}/${year}` === date) {
         setIsActive(true);
-        console.log(`i Am here :)`);
       }
     });
 

@@ -102,7 +102,7 @@ const Intro_section = () => {
           <p
             key={`word-${i}`}
             className={`cafe-header text-8xl font-black scale-y-200 text-dark-spruce blur-xs
-          ${word === " " ? "ml-5" : ""} opacity-0  select-none cursor-default font-museo`}>
+          ${word === " " ? "ml-5" : ""} opacity-0  select-none cursor-default font-museo max-lg:text-6xl`}>
             {word}
           </p>
         ))}
