@@ -6,6 +6,7 @@ import gsap from "gsap";
 import HoverButton from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import useWindowSize from "@/src/hooks/resizeWindows";
 
 const Intro_section = () => {
   const texts: string[] = [
@@ -14,6 +15,7 @@ const Intro_section = () => {
   ];
   const header: string[] = [...texts[0]];
   const locateText: string[] = [...texts[1]];
+  const { width } = useWindowSize();
 
   useGSAP(() => {
     const tl = gsap.timeline();
@@ -97,7 +99,7 @@ const Intro_section = () => {
           priority
         />
       </div>
-      <div className="flex ml-10 mt-25 max-md:justify-center">
+      <div className="flex ml-10 mt-25 max-md:justify-center max-sm:ml-0">
         {header.map((word, i) => (
           <p
             key={`word-${i}`}
@@ -112,7 +114,7 @@ const Intro_section = () => {
         <Link href={"/reservation/verify"}>
           <HoverButton
             text="Reservation"
-            arrow={true}
+            arrow={width < 500 ? false : true}
             bgClass="bg-dark-spruce"
             TclassName=" text-2xl font-black font-museo max-md:text-xl"
             BclassName="reservation-button border border-forest-moss/50 rounded-full w-75 py-4 text-forest-moss
@@ -122,9 +124,9 @@ const Intro_section = () => {
         <Link href="/reservation">
           <HoverButton
             text="Reserved"
-            arrow={true}
+            arrow={width < 500 ? false : true}
             bgClass="bg-dark-spruce"
-            TclassName=" text-2xl font-black font-museo max-md:text-xl max-md:mr-6"
+            TclassName=" text-2xl font-black font-museo max-md:text-xl max-sm:mr-0 max-sm:text-center"
             BclassName="reserved-button border border-forest-moss/50 rounded-full w-75 py-4 text-forest-moss
           opacity-0 translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50 max-md:w-60 "
           />
@@ -136,7 +138,6 @@ const Intro_section = () => {
         }
         {locateText.map((word, i) => (
           <p
-          
             key={`word-${i}`}
             className={`text-xl address-text
           ${word === " " ? "ml-1" : ""} blur-xs translate-y-5 opacity-0 max-md:text-lg max-sm:text-sm max-sm:font-semibold `}>
