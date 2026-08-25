@@ -63,7 +63,7 @@ const Form_template = ({
 
   return (
     <div className="relative bg-dark-spruce w-full h-screen font-museo overflow-hidden">
-      <div className="flex w-full h-10 px-10 mt-15 items-center justify-center max-md:px-0">
+      <div className="flex w-full h-10 px-10 mt-15 items-center justify-center max-md:px-0 max-md:mt-5">
         <div className="width-line   h-1 bg-forest-moss rounded-full flex items-center max-md:hidden">
           <div className="h-4 w-4 bg-forest-moss rounded-full absolute max-md:hidden"></div>
         </div>

@@ -55,10 +55,10 @@ export const Normal_input = ({ placeHolder, state, setState }: NormalProps) => {
     });
   }, []);
   return (
-    <div className="w-full text-forest-moss">
+    <div className="w-full text-forest-moss ">
       <div
         ref={textRef}
-        className="absolute mt-4 ml-4 text-2xl opacity-50 pointer-events-none">
+        className="absolute mt-4 ml-4 text-2xl opacity-50 pointer-events-none  max-sm:text-xl max-sm:mt-2 ">
         {placeHolder}
       </div>
 
@@ -70,11 +70,11 @@ export const Normal_input = ({ placeHolder, state, setState }: NormalProps) => {
         onChange={(e) => setState(e.target.value)}
         type="text"
         className="flex w-full text-2xl font-museo py-4 px-4 outline-0 font-semibold 
-         rounded-t-2xl z-20"
+         rounded-t-2xl z-20 max-sm:text-xl  max-sm:py-2 "
       />
       <div
         ref={lineRef}
-        className="w-0 mx-auto  h-1 rounded-full bg-forest-moss "></div>
+        className="w-0 mx-auto h-1 rounded-full bg-forest-moss "></div>
     </div>
   );
 };
@@ -118,28 +118,30 @@ export const Num_input = ({
   };
 
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full flex justify-center ">
       <div>
-        <div className="relative w-10 h-10  mx-auto mb-4 overflow-hidden pb-5">
+        <div className="relative w-10 aspect-square mx-auto mb-4 overflow-hidden pb-5 max-sm:w-5 max-sm:mb-2">
           <div
             onClick={next}
-            className="absolute w-10 h-10 bg-forest-moss rotate-45 mt-7 rounded-md  cursor-pointer active:scale-90 duration-200"></div>{" "}
+            className="absolute w-10 aspect-square bg-forest-moss rotate-45 mt-7 rounded-md  cursor-pointer active:scale-90 
+            duration-200 max-sm:w-5 max-sm:mt-3 "></div>{" "}
         </div>
-        <div className="text-4xl border-y-2 w-15 h-15 pointer-events-none overflow-hidden">
+        <div className="text-4xl border-y-2 w-15 h-15 pointer-events-none overflow-hidden max-sm:text-4xl  max-sm:w-10">
           {numRange.map((n, i) => (
             <p
               key={`num-${i}`}
               ref={i === numRange.length - 1 ? numsRef : null}
               style={{ transform: `translateY(${num * -48}px)` }}
-              className={`text-center my-2  transition-all duration-400 ease-out`}>
+              className={`text-center my-2  transition-all duration-400 ease-out `}>
               {n}
             </p>
           ))}
         </div>
-        <div className="relative w-10 h-10  mx-auto mt-4 overflow-hidden pb-5">
+        <div className="relative w-10 aspect-square mx-auto mt-4 overflow-hidden pb-5 max-sm:w-5 max-sm:mt-2">
           <div
             onClick={prev}
-            className="absolute w-10 h-10 bg-forest-moss rotate-45 -mt-7 rounded-b-md cursor-pointer active:scale-90 duration-200"></div>{" "}
+            className="absolute w-10 aspect-square bg-forest-moss rotate-45 -mt-7 rounded-b-md cursor-pointer active:scale-90 
+            duration-200 max-sm:w-5 max-sm:-mt-3"></div>{" "}
         </div>
       </div>
     </div>
