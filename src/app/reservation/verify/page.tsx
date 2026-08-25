@@ -293,14 +293,14 @@ const Reservation = () => {
       <div
         className="success-massage absolute w-full z-50  h-screen bg-forest-moss 
       flex items-center justify-center -translate-y-full ">
-        <div className="text-7xl font-extrabold font-museo text-dark-spruce">
+        <div className="text-7xl font-extrabold font-museo text-dark-spruce max-sm:text-4xl text-center">
           <div className="svg-success w-full flex justify-center -mt-20 mb-15  -translate-y-30">
             <Image
               src={"/svg/success-verify.svg"}
               width={200}
               height={100}
               alt="success"
-              className="object-contain select-none"
+              className="object-contain select-none max-sm:scale-70"
             />
           </div>
           <p className="succession-text flex ">{`Verified Succession `}</p>
@@ -314,10 +314,10 @@ const Reservation = () => {
           <div ref={input_div} className="w-0 backdrop-opacity-0 mt-25 mx-auto">
             <p
               className={`example-email absolute -z-10 mt-5 ml-5 text-2xl text-forest-moss opacity-0 translate-x-10
-          select-none ${step === "send" ? "" : "hidden"}`}>
+          select-none ${step === "send" ? "" : "hidden"} max-sm:text-xl`}>
               Name@Example.com
             </p>
-            <div className="code-div absolute w-full h-[40vh]  inset-0 -top-25 flex justify-center items-center gap-5 -z-10">
+            <div className="code-div absolute w-full h-[40vh]  inset-0 -top-25 flex justify-center items-center gap-5 -z-10 max-sm:gap-2 max-sm:-top-45">
               {code.map((digit, i) => (
                 <input
                   type="text"
@@ -333,7 +333,8 @@ const Reservation = () => {
                   key={`code-${i + 1}`}
                   className="code-input w-20 aspect-square border-2 rounded-3xl border-forest-moss outline-0 
                 text-4xl text-forest-moss text-center focus:shadow-2xl/40  translate-y-30 opacity-0 cursor-default 
-                focus:-translate-y-2.5  shadow-forest-moss transition-all duration-500 ease-out"
+                focus:-translate-y-2.5  shadow-forest-moss transition-all duration-500 ease-out max-sm:w-full max-sm:rounded-xl
+                max-sm:text-2xl "
                 />
               ))}
             </div>
@@ -349,7 +350,8 @@ const Reservation = () => {
                   : handle_not_active()
               }
               type="text"
-              className={`w-full text-2xl text-forest-moss px-5 py-5 rounded-t-2xl mx-auto outline-0 ${step === "send" ? "" : "hidden"}`}
+              className={`w-full text-2xl text-forest-moss px-5 py-5 rounded-t-2xl mx-auto outline-0 ${step === "send" ? "" : "hidden"} 
+              max-sm:text-xl`}
             />
             <div
               className={`div-under-input w-full h-1 rounded-full bg-forest-moss ${step === "send" ? "" : "mt-43"}`}></div>
@@ -363,8 +365,8 @@ const Reservation = () => {
                       ? "Send Code"
                       : "Verify"
                 }
-                BclassName="z-30 mt-20 border-2 border text-forest-moss w-full h-20 rounded-full"
-                TclassName="button-text-email text-3xl text-forest-moss font-bold translate-y-10 opacity-0 scale-80"
+                BclassName="z-30 mt-20 border-2 border text-forest-moss w-full h-20 rounded-full max-sm:h-18 "
+                TclassName="button-text-email text-3xl text-forest-moss font-bold translate-y-10 opacity-0 scale-80 max-sm:text-2xl"
                 scaleNum={55}
                 bgClass="bg-sega-green"
               />

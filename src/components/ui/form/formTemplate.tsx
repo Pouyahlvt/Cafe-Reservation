@@ -63,31 +63,33 @@ const Form_template = ({
 
   return (
     <div className="relative bg-dark-spruce w-full h-screen font-museo overflow-hidden">
-      <div className="flex w-full h-10 px-10 mt-15 items-center justify-center">
-        <div className="width-line   h-1 bg-forest-moss rounded-full flex items-center">
-          <div className="h-4 w-4 bg-forest-moss rounded-full absolute"></div>
+      <div className="flex w-full h-10 px-10 mt-15 items-center justify-center max-md:px-0">
+        <div className="width-line   h-1 bg-forest-moss rounded-full flex items-center max-md:hidden">
+          <div className="h-4 w-4 bg-forest-moss rounded-full absolute max-md:hidden"></div>
         </div>
         <div>
-          <h1 className="header text-6xl text-forest-moss mx-15 text-nowrap opacity-0 -translate-y-10 cursor-default">
+          <h1 className="header text-6xl text-forest-moss mx-15 text-nowrap opacity-0 -translate-y-10 cursor-default max-sm:text-4xl max-sm:font-bold">
             {text}
           </h1>
           {text_two && dependes_two && (
-            <h1 className="header-two text-6xl text-forest-moss mx-15 text-nowrap opacity-0 translate-y-10 cursor-default">
+            <h1 className="header-two text-6xl text-forest-moss mx-15 text-nowrap opacity-0 translate-y-10 cursor-default max-sm:text-4xl max-sm:font-bold">
               {text_two}
             </h1>
           )}
         </div>
-        <div className="width-line   h-1 bg-forest-moss rounded-full flex items-center shrink-0">
-          <div className="h-4 w-4 bg-forest-moss rounded-full ml-auto "></div>
+        <div className="width-line   h-1 bg-forest-moss rounded-full flex items-center shrink-0 max-md:hidden">
+          <div className="h-4 w-4 bg-forest-moss rounded-full ml-auto max-md:hidden"></div>
         </div>
       </div>
-      <div className="w-full h-screen absolute  top-0 pt-10 px-25 flex">
-        <div className="height-line flex w-1 h-1 bg-forest-moss rounded-full justify-center">
-          <div className="h-4 w-4 bg-forest-moss rounded-full absolute"></div>
+      <div className="w-full h-screen absolute  top-0 pt-10 px-25 flex max-md:px-0">
+        <div className="height-line flex w-1 h-1 bg-forest-moss rounded-full justify-center max-md:hidden">
+          <div className="h-4 w-4 bg-forest-moss rounded-full absolute max-md:hidden"></div>
         </div>
-        <div className="flex w-full shrink h-full mx-10 mt-20">{children}</div>
-        <div className="height-line flex w-1 h-1 bg-forest-moss rounded-full justify-center">
-          <div className="h-4 w-4 bg-forest-moss rounded-full absolute"></div>
+        <div className="flex w-full shrink h-full mx-10 mt-20 max-md:mx-0">
+          {children}
+        </div>
+        <div className="height-line flex w-1 h-1 bg-forest-moss rounded-full justify-center max-md:hidden">
+          <div className="h-4 w-4 bg-forest-moss rounded-full absolute max-md:hidden"></div>
         </div>
       </div>
     </div>
