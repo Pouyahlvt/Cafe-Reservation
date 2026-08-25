@@ -165,7 +165,7 @@ export default function Gallery({ images }: Props) {
         onClick={prev}
         className="absolute left-8 z-50 text-5xl text-dark-spruce border-2 rounded-full h-12 aspect-square
         shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] bg-forest-moss -translate-y-5
-        cursor-pointer hover:scale-105 transition-all duration-150 ease-in-out active:scale-90">
+        cursor-pointer hover:scale-105 transition-all duration-150 ease-in-out active:scale-90 max-sm:hidden">
         <span className="flex -translate-y-2 translate-x-3.5 font-thin">‹</span>
       </button>
       {/* 📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷📷 */}
@@ -175,8 +175,8 @@ export default function Gallery({ images }: Props) {
           ref={(el) => {
             refs.current[index] = el;
           }}
-          className={`absolute w-[40%] h-[50%] rounded-2xl overflow-hidden cursor-grab ${
-            current === index ? "shadow-2xl/70 z-20" : ""
+          className={`absolute w-[40%] max-md:w-[60%] max-sm:w-[75%] h-[50%] rounded-2xl overflow-hidden cursor-grab ${
+            current === index ? "shadow-2xl/70 z-20 " : "max-md:opacity-0"
           } ${isDragging ? "cursor-grab" : "cursor-grab"}`}>
           <Image
             src={img}
@@ -195,7 +195,7 @@ export default function Gallery({ images }: Props) {
         onClick={next}
         className="absolute right-8 z-50 text-5xl text-dark-spruce border-2 rounded-full h-12 aspect-square
         shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] bg-forest-moss -translate-y-5
-        cursor-pointer hover:scale-105 transition-all duration-150 ease-in-out active:scale-90">
+        cursor-pointer hover:scale-105 transition-all duration-150 ease-in-out active:scale-90 max-sm:hidden">
         <span className="flex -translate-y-2 translate-x-4 font-thin">›</span>
       </button>
     </div>

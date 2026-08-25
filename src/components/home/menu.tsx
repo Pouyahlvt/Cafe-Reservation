@@ -119,7 +119,8 @@ const Menu = () => {
       className="menu w-full min-h-screen bg-dark-spruce rounded-t-4xl pb-20 border-b-2 border-forest-moss">
       <h1
         className="menu-header w-full h-20 justify-center text-[10rem] tracking-tighter 
-                   text-forest-moss text-center font-black font-museo flex top-0 select-none cursor-default">
+                   text-forest-moss text-center font-black font-museo flex top-0 select-none cursor-default
+                   max-md:text-[6rem] ">
         Menu
       </h1>
       <div className="shrink-0 mx-7 mt-30 min-h-screen ">
@@ -131,31 +132,31 @@ const Menu = () => {
               {/* <div className="w-3 h-3 rounded-full bg-forest-moss -ml-2 mr-auto"></div> */}
               <h2
                 className={`menu-${category} text-6xl mx-6 font-museo opacity-0 translate-y-5 text-forest-moss 
-                font-bold select-none cursor-default`}>
+                font-bold select-none cursor-default max-lg:text-5xl max-md:text-3xl max-sm:text-2xl max-sm:mx-2`}>
                 {category}
               </h2>
               {/* <div className="w-3 h-3 rounded-full bg-forest-moss -mr-2 ml-auto"></div> */}
               <div
                 className={`${category}-div menu-cat-div ml-auto  h-2 bg-forest-moss rounded-full`}></div>
             </div>
-            <div className="grid grid-cols-1 py-5">
+            <div className="grid grid-cols-1 py-5 ">
               {Object.entries(items).map(([item, ingredient]) => (
                 <div key={item}>
-                  <div className="flex py-10 items-center">
+                  <div className="flex py-10 items-center max-lg:py-8 max-md:grid max-sm:py-4">
                     <h3
                       onClick={() => setShow(item)}
                       className={`${item}-text ml-25 text-4xl font-bold font-museo text-forest-moss cursor-pointer 
-                                opacity-0 -translate-x-10`}>
+                                opacity-0 -translate-x-10 max-lg:text-3xl max-lg:ml-15 max-md:mx-auto max-sm:text-2xl`}>
                       {item}
                     </h3>
-                    <div className="flex ml-10">
+                    <div className="flex ml-10 max-md:justify-center max-md:mt-2 max-sm:ml-0">
                       {ingredient.map((ing, i) => (
                         <div
                           key={`ing-${i}`}
-                          className={`${show === item ? " ml-4 transalte-x-0" : "-translate-x-10 opacity-0"}  
-                                    text-2xl text-sega-green
-                          transition-all duration-500 ease-in-out `}>
-                          <span className="mr-2">|</span> {ing}
+                          className={`${show === item ? " ml-4 max-lg:ml-2 transalte-x-0" : "-translate-x-10 opacity-0"}  
+                                    text-2xl text-sega-green transition-all duration-500 ease-in-out 
+                                    max-lg:text-xl max-sm:text-sm`}>
+                          <span className="mr-2 max-sm:hidden">|</span> {ing}
                         </div>
                       ))}
                     </div>

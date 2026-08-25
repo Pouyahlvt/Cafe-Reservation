@@ -45,41 +45,48 @@ const Event_page = ({
   }, []);
 
   return (
-    <div className="relative w-full h-full overflow-hidden flex">
-      <div className="w-[40%] h-full">
-        <h2 className="ml-15 mt-15 text-7xl font-black font-museo text-dark-spruce">
+    <div className="relative w-full h-full overflow-hidden flex max-lg:grid ">
+      <div className="w-[40%] h-full max-lg:h-fit max-lg:w-full ">
+        <h2
+          className="ml-15 mt-15 text-7xl font-black font-museo text-dark-spruce 
+        max-lg:mt-10 max-lg:text-center max-lg:ml-0 max-sm:text-5xl">
           {event_name}
         </h2>
-        <p className="ml-15 mt-10  text-3xl font-black font-museo text-dark-spruce ">
+        <p
+          className="ml-15 mt-10  text-3xl font-black font-museo text-dark-spruce 
+        max-lg:mt-5 max-lg:text-center max-lg:ml-0 max-sm:text-xl max-sm:mt-2">
           {event_text}
         </p>
-        <div className="absolute bottom-35 ml-15 ">
+        <div
+          className="absolute bottom-35 ml-15 
+        max-lg:static max-lg:mt-5 max-lg:w-full max-lg:flex max-lg:justify-center max-lg:ml-0
+        ">
           {!full && isActive && (
             <HoverButton
               text="Events Reservation"
               bgClass="bg-dark-spruce"
-              TclassName=" text-2xl font-black font-museo"
+              TclassName=" text-2xl font-black font-museo max-sm:text-xl"
               BclassName="border border-forest-moss/50 rounded-full w-90 py-6 text-forest-moss
-               backdrop-blur-xs bg-dark-spruce/50 shadow-2xl/50 flex mt-auto"
+               backdrop-blur-xs bg-dark-spruce/50 shadow-2xl/50 flex mt-auto max-lg:mx-auto max-sm:w-[80%] max-sm:py-5"
             />
           )}
           {full && !isActive && (
-            <p className="text-3xl font-museo font-bold text-dark-spruce">
+            <p className="text-3xl font-museo font-bold text-dark-spruce max-sm:text-xl">
               {"The event is ended :("}
             </p>
           )}
           {!full && !isActive && (
-            <p className="text-3xl font-museo font-bold text-dark-spruce">
+            <p className="text-3xl font-museo font-bold text-dark-spruce max-sm:text-xl">
               {"The event has not started yet !"}
             </p>
           )}
         </div>
       </div>
-      <div className="w-[60%] h-full items-center flex ">
-        <p className="absolute top-10 right-20 text-6xl font-museo font-bold text-dark-spruce ">
+      <div className="w-[60%] h-full items-center flex max-lg:grid  max-lg:w-full max-lg:mt-2">
+        <p className="absolute top-10 right-20 text-6xl font-museo font-bold text-dark-spruce max-lg:static max-lg:text-4xl max-lg:text-center ">
           {date}
         </p>
-        <div className="flex shrink-0 w-full h-[70%] my-auto ">
+        <div className="flex shrink-0 w-full h-[70%] my-auto max-lg:h-100 max-lg:-mt-15">
           {<Gallery images={images} />}
         </div>
       </div>
