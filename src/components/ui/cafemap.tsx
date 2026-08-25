@@ -65,7 +65,7 @@ const CafeMap = ({ tableData, selected, setSelected }: Props) => {
     e.currentTarget.releasePointerCapture(e.pointerId);
   };
   return (
-    <div className="w-full h-screen overflow-hidden">
+    <div className="w-full h-screen overflow-hidden ">
       <div
         className={`relative w-350 h-262.5 shrink-0 ${
           isDargging ? "cursor-grabbing" : "cursor-grab"
@@ -83,7 +83,7 @@ const CafeMap = ({ tableData, selected, setSelected }: Props) => {
           height={1050}
           src="/cafefloor.jpg"
           alt="cafe floor"
-          className="absolute top-0 left-0 z-0 max-w-none w-350 h-262.5"
+          className={`absolute top-0 left-0 z-0 max-w-none w-350 h-262.5 `}
           draggable={false}
         />
 

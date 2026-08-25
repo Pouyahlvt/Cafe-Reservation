@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Success_mass from "@/src/components/ui/succesMassage";
+import useWindowSize from "@/src/hooks/resizeWindows";
 
 interface TableData {
   table_id: number;
@@ -22,6 +23,7 @@ export default function ChooseTablePage() {
   const navRef = useRef<HTMLDivElement>(null);
   const [reservationId, setReservationId] = useState("");
   const [loading, setLoading] = useState(false);
+  const { width } = useWindowSize();
 
   useEffect(() => {
     const id = sessionStorage.getItem("reservationId");
@@ -122,7 +124,7 @@ export default function ChooseTablePage() {
 
     if (selected.length > 2) {
       tl.to(nav, {
-        width: 650,
+        width: width < 700 ? 300 : 650,
         duration: 0.7,
         ease: "power3.out",
       })
@@ -169,12 +171,12 @@ export default function ChooseTablePage() {
       <div
         ref={navRef}
         className="fixed flex z-30 bottom-5 left-10  bg-sega-green/50 shadow-2xl/50 backdrop-blur-sm 
-        w-60 h-18 overflow-hidden rounded-full items-center shadow-[inset_0_16px_20px_rgba(49,64,43,0.5)]">
+        w-60 h-18 overflow-hidden rounded-full items-center shadow-[inset_0_16px_20px_rgba(49,64,43,0.5)] max-sm:left-2">
         <button
-          className={`button-del w-60 h-15 flex z-40 border-muted-teal border-2 rounded-full 
+          className={`button-del ${width < 700 ? "w-35 " : "w-60"} h-15 flex z-40 border-muted-teal border-2 rounded-full 
           bg-muted-teal/30 backdrop-blur-md items-center justify-center -translate-x-75 ml-2
           text-2xl text-muted-teal font-museo font-bold tracking-tight cursor-pointer absolute
-          hover:bg-muted-teal hover:text-dark-spruce transition-colors duration-300 ease-in-out `}
+          hover:bg-muted-teal hover:text-dark-spruce transition-colors duration-300 ease-in-out max-md:text-lg`}
           onClick={() => setSelected("")}>
           Delete Table
         </button>
@@ -186,17 +188,17 @@ export default function ChooseTablePage() {
           </p>
           <p
             className={`text-center -translate-y-8 ${!selected ? "-translate-x-70 " : "translate-x-0 "} 
-            duration-500 ease-out transition-transform `}>
+            duration-500 ease-out transition-transform max-sm:opacity-0 max-sm:scale-0`}>
             Done it !
           </p>
         </div>
         <button
           onClick={reserveTable}
-          className={`reserve-button  w-60 h-15 flex z-40 border-muted-teal border-2 rounded-full 
+          className={`reserve-button  ${width < 700 ? "w-35 " : "w-60"} h-15 flex z-40 border-muted-teal border-2 rounded-full 
           bg-muted-teal/30 backdrop-blur-md items-center justify-center translate-x-75 right-2
           text-2xl text-muted-teal font-museo font-bold tracking-tight cursor-pointer absolute
           hover:bg-muted-teal hover:text-dark-spruce transition-colors duration-300 ease-in-out 
-          `}>
+          max-sm:text-lg`}>
           <p className={`${loading ? "animate-bounce" : ""}`}>
             {loading ? ". . ." : "Reserve Table"}
           </p>
