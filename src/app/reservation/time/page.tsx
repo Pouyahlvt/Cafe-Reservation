@@ -49,7 +49,7 @@ const Time_page = () => {
 
     try {
       async function get_data() {
-        const res = await fetch("http://localhost:3000/api/tables/all");
+        const res = await fetch("/api/tables/all");
         if (!res.ok) return;
         const data = await res.json();
 
