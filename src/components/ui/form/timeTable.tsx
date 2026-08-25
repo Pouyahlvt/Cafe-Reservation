@@ -85,33 +85,34 @@ const Time_table = ({
   };
 
   return (
-    <div className="w-[80%] h-[50%] mt-10 rounded-xl mx-auto">
+    <div className="w-[80%] h-[50%] mt-10 rounded-xl mx-auto max-lg:w-full max-sm:mt-0">
       <div className="flex mx-auto w-fit  bg-sega-green/30 py-2 rounded-full">
         <div
-          className={`w-30 h-13  bg-forest-moss/30 -mt-2 cursor-pointer border-forest-moss 
-          border-2 absolute rounded-full z-10 transition-all duration-500 ease-in-out ${mode === "date" ? "ml-0" : "ml-30"}`}></div>
+          className={`w-30 h-13  bg-forest-moss/30 -mt-2 cursor-pointer border-forest-moss max-sm:w-17 max-sm:h-11 
+          border-2 absolute rounded-full z-10 transition-all duration-500 ease-in-out ${mode === "date" ? "ml-0" : "ml-30 max-sm:ml-17"}`}></div>
         <div className="w-fit">
           <button
             onClick={() => setMode("date")}
-            className="text-center text-3xl text-muted-teal w-30 cursor-pointer">
+            className="text-center text-3xl text-muted-teal w-30 cursor-pointer max-sm:w-17 max-sm:text-xl">
             Date
           </button>
         </div>
         <div className="w-fit">
           <button
             onClick={() => setMode("meal")}
-            className="text-center text-3xl text-muted-teal w-30 cursor-pointer">
+            className="text-center text-3xl text-muted-teal w-30 cursor-pointer max-sm:w-17 max-sm:text-xl">
             Meal
           </button>
         </div>
       </div>
       <div
         className={`w-[90%] mx-auto mt-5 rounded-3xl border-2 border-forest-moss overflow-hidden 
-        ${mode === "date" ? "h-45  bg-forest-moss/30" : "h-15 bg-forest-moss/10"} transition-all duration-500 ease-in-out`}>
-        <h2 className="mt-3 text-2xl text-muted-teal text-center ">
+        ${mode === "date" ? "h-45 max-sm:h-27  bg-forest-moss/30" : "h-15 max-sm:h-12 bg-forest-moss/10"} 
+        transition-all duration-500 ease-in-out max-sm:rounded-2xl`}>
+        <h2 className="mt-3 text-2xl text-muted-teal text-center max-sm:text-lg ">
           Choose your Date .
         </h2>
-        <div className="w-[96%] mx-auto h-25 mt-5 rounded-2xl bg-muted-teal flex items-center px-2  ">
+        <div className="w-[96%] mx-auto h-25 mt-5 rounded-2xl bg-muted-teal flex items-center px-2  max-sm:mt-3 max-sm:h-12 max-sm:px-0.5 max-sm:rounded-xl">
           {arr.map((dateDay, i) => (
             <div
               onClick={() => {
@@ -119,7 +120,7 @@ const Time_table = ({
               }}
               key={`date-${i}`}
               className={`w-1/8 h-[85%] bg-dark-spruce rounded-xl flex justify-center items-center cursor-pointer mx-auto
-               transition-all duration-300 ease-in-out 
+               transition-all duration-300 ease-in-out  max-sm:h-[90%] max-sm:rounded-[10px]
                ${
                  date.day === dateDay.day
                    ? "bg-sega-green text-dark-spruce"
@@ -134,9 +135,11 @@ const Time_table = ({
                    : ""
                }
                `}>
-              <div className="text-2xl  select-none text-center">
+              <div className="text-2xl  select-none text-center max-sm:text-lg">
                 {dateDay.day}
-                <p className="text-xl text-center ">{dateDay.week}</p>
+                <p className="text-xl text-center max-sm:text-[10px] max-sm:-mt-1">
+                  {dateDay.week}
+                </p>
               </div>
             </div>
           ))}
@@ -144,11 +147,12 @@ const Time_table = ({
       </div>
       <div
         className={`w-[90%] mx-auto mt-2 rounded-3xl border-2 border-forest-moss overflow-hidden
-        ${mode === "date" ? "h-15  bg-forest-moss/10" : "h-40  bg-forest-moss/30"} transition-all duration-500 ease-in-out`}>
-        <h2 className="mt-3 text-2xl text-muted-teal text-center">
+        ${mode === "date" ? "h-15 max-sm:h-13  bg-forest-moss/10" : "h-40 max-sm:h-28  bg-forest-moss/30"} 
+        transition-all duration-500 ease-in-out max-sm:rounded-2xl`}>
+        <h2 className="mt-3 text-2xl text-muted-teal text-center max-sm:text-lg">
           Choose your meal time .
         </h2>
-        <div className="w-[95%] h-20 gap-7 flex justify-center items-center mt-4">
+        <div className="w-full h-20 gap-7 flex justify-center items-center mt-4 max-sm:gap-2 max-sm:mt-0 ">
           {["breakfast", "lunch", "dinner"].map((FoodMeal, i) => (
             <button
               onClick={() => {
@@ -156,7 +160,8 @@ const Time_table = ({
               }}
               key={`meal-${i}`}
               className={` h-7/10 text-2xl  font-semibold flex  items-center justify-center rounded-full cursor-pointer
-              transition-all duration-300 ease-out w-1/4 text-dark-spruce 
+              transition-all duration-300 ease-out w-1/4 text-dark-spruce max-sm:text-[15px] 
+              max-sm:h-5/10 max-sm:rounded-xl max-sm:w-3/10
               ${
                 meal === FoodMeal
                   ? "bg-dark-spruce/70 text-muted-teal shadow-2xl/50 -translate-y-2"

@@ -184,8 +184,8 @@ const Time_page = () => {
               setMeal={setMeal}
             />
           }
-          <div className="flex relative  w-full justify-center items-center">
-            <p className="-mt-14  w-full flex  justify-center text-2xl absolute  text-forest-moss">
+          <div className="flex relative  w-full justify-center items-center max-sm:mt-10">
+            <p className="-mt-14  w-full flex  justify-center text-2xl absolute  text-forest-moss max-sm:text-xl">
               {`Reserve ${date.day > 0 ? " on " + date.week + " " + date.day + " " + date.month : "''Date ''"} for 
               ${meal.length > 1 ? meal : "'Meal'"} `}
             </p>
@@ -194,8 +194,8 @@ const Time_page = () => {
               <HoverButton
                 text="Let's Go"
                 onClick={hanlde_click}
-                BclassName="flex absolute z-30 mt-20 border-2 border text-forest-moss w-[30%] h-20 rounded-full "
-                TclassName="button-text-email text-3xl text-forest-moss font-bold select-none"
+                BclassName="flex absolute z-30 mt-20 border-2 border text-forest-moss w-[30%] h-20 rounded-full max-sm:w-7/10 max-sm:h-15"
+                TclassName="button-text-email text-3xl text-forest-moss font-bold select-none max-sm:text-2xl"
                 scaleNum={25}
                 bgClass="bg-sega-green"
               />
