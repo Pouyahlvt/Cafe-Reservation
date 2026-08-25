@@ -99,25 +99,25 @@ const ReserveCheck = () => {
         <div className="w-full h-full relative">
           <div
             className={`absolute w-full h-full flex z-20 bg-muted-teal rounded-t-4xl shadow-2xl mt-5 
-            ${checked ? "translate-y-0" : "translate-y-[120%]"} transition-all duration-700 ease-in-out`}>
-            <div className="w-[calc(100%-100px)] mx-25 pt-10">
+            ${checked ? "translate-y-0" : "translate-y-full"} transition-all duration-700 ease-in-out`}>
+            <div className="w-[calc(100%-100px)]  mx-25 pt-10 max-md:w-9/10 max-md:mx-auto">
               {Object.entries(details).map(([key, value]) => (
                 <div
                   key={`details-${key}`}
                   className={`w-full h-20 mt-10 bg-dark-spruce/70 rounded-3xl border-4
             border-dark-spruce shadow-2xl/20 flex justify-center items-center ${key === "reservationId" ? "hidden" : ""}`}>
-                  <p className="text-2xl text-muted-teal ">
-                    Reservation {key} :{" "}
+                  <p className="text-2xl text-muted-teal max-sm:text-lg">
+                    <span className="max-sm:hidden">Reservation</span> {key} :{" "}
                     {key === "date" ? value.slice(0, 10) : value}
                   </p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="w-[calc(100%-80px)] mx-auto mt-20">
+          <div className="w-[calc(100%-80px)] mx-auto mt-20 max-sm:w-95/100">
             {
               <Normal_input
-                placeHolder="Write your Reservation Code"
+                placeHolder="Reservation Code"
                 state={reservationID}
                 setState={setReservationID}
               />
@@ -128,8 +128,8 @@ const ReserveCheck = () => {
               onClick={check}
               text={loading ? ". . ." : "CHECK THE CODE"}
               bgClass="bg-sega-green"
-              BclassName="w-100 mx-auto border-2 h-20 border-sega-green rounded-full mt-30"
-              TclassName={`text-2xl text-forest-moss font-bold ${loading ? "animate-bounce  text-4xl" : ""}`}
+              BclassName="w-100 mx-auto border-2 h-20 border-sega-green rounded-full mt-30 max-md:w-9/10"
+              TclassName={`text-2xl text-forest-moss font-bold max-md:text-xl ${loading ? "animate-bounce  text-4xl " : ""}`}
             />
           }
         </div>
