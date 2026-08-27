@@ -128,7 +128,7 @@ const Intro_section = () => {
             bgClass="bg-dark-spruce"
             TclassName=" text-2xl font-black font-museo max-md:text-xl max-sm:mr-0 max-sm:text-center"
             BclassName="reserved-button border border-forest-moss/50 rounded-full w-75 py-4 text-forest-moss
-          opacity-0 translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50 max-md:w-60 "
+          opacity-0 translate-x-70 backdrop-blur-xs bg-dark-spruce/40 shadow-2xl/50 max-md:w-60"
           />
         </Link>
       </div>

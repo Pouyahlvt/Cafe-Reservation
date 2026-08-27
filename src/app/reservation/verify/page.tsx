@@ -14,7 +14,6 @@ const Reservation = () => {
   const timelienPlaceholder = useRef<gsap.core.Timeline | null>(null);
   const timelienVeify = useRef<gsap.core.Timeline | null>(null);
   const errText = useRef(null);
-  const [activeInput, setActiveInput] = useState(false);
   const [email, setEmail] = useState("");
   const [step, setStep] = useState("send");
   const [loading, setLoading] = useState(false);
@@ -195,27 +194,18 @@ const Reservation = () => {
     timelienPlaceholder.current.to(".example-email", {
       x: 0,
       opacity: 0.6,
-      duration: 0.5,
-      ease: "power3.out",
+      duration: 0.3,
+      ease: "power2.out",
     });
-
-    if (!activeInput) {
-      setTimeout(() => {
-        timelienPlaceholder.current?.play();
-      }, 1500);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handle_not_active = () => {
-    setActiveInput(true);
-    timelienPlaceholder.current?.play();
-  };
-
-  const handle_active = () => {
-    setActiveInput(false);
-    timelienPlaceholder.current?.reverse();
-  };
+  useEffect(() => {
+    if (email.length > 0) {
+      timelienPlaceholder.current?.reverse();
+    } else {
+      timelienPlaceholder.current?.play();
+    }
+  }, [email]);
 
   //when page render animations
   useGSAP(() => {
@@ -341,14 +331,10 @@ const Reservation = () => {
             <input
               ref={email_input}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onFocus={handle_active}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
               onKeyDown={(e) => handle_enter(e)}
-              onBlur={(e) =>
-                e.target.value.length > 0
-                  ? setActiveInput(false)
-                  : handle_not_active()
-              }
               type="text"
               className={`w-full text-2xl text-forest-moss px-5 py-5 rounded-t-2xl mx-auto outline-0 ${step === "send" ? "" : "hidden"} 
               max-sm:text-xl`}
